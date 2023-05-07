@@ -8,3 +8,23 @@ h1{
     color: deepskyblue;
     text-align: center;
 }
+
+.subject{
+    margin: auto;
+    display: block;
+}
+
+.description{
+    margin: auto;
+    display: block;
+}
+
+.submit{
+    margin: auto;
+    display: block;
+    background-color: rgb(169, 166, 166);
+    color: blue;
+    font-weight: bolder;
+    margin-top: 5%;
+    border-radius: 20%;
+}
