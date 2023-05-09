@@ -24,20 +24,20 @@
                         <td><%= task.Subject %></td>
 						<td><%= task.Description%></td>
                         <td><%= task.Date%></td>
-						<td style="text-decoration: none;">
-							<input type="checkbox" class="checkbox" 
-							onclick="LineThrough()">
+						<td>
+							<input type="checkbox" class="checkbox" id="checkbox"
+							onclick="LineThrough(this)">
 							<label for="checkbox">Mark As Done</label>
 							<button type="button" onclick="deleteTask()">Delete</button>
-					</td>
+						</td>
 					</tr>
 				<% } %>
 			</tbody>
 		</table>
 	</div>
 	<script>
-		function LineThrough(checkbox) {
-				checkbox.style.textDecoration = 'line-through';
+		function LineThrough() {
+			document.getElementById('checkbox').style.display = 'line-through';
 			}
 	</script>
 </body>

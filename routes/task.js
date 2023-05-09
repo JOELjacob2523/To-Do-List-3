@@ -1,24 +1,27 @@
 const Router = require('express').Router();
 const Controller = require('../controllers/tasks');
 
-Router.get('/create', (req, res, next) => {
+// Route handler for GET '/create'
+Router.get('/create', async (req, res, next) => {
     res.render('tasks-form');
-});
-
-Router.get('/view', async (req, res, next) => {
+  });
+  
+  // Route handler for POST '/create'
+  Router.post('/create', async (req, res, next) => {
+    // Create the task using data from the form
+    await Controller.createTask(req.body);
+  
+    // Redirect to the '/view' route
+    res.redirect('/tasks/view');
+  });
+  
+  // Route handler for GET '/view'
+  Router.get('/view', async (req, res, next) => {
+    // Get all tasks from the database
     let tasks = await Controller.getAll();
-    res.render('tasks-view', {tasks});
-});
-
-Router.post('/create', async (req, res, next) => {
-    try{
-        let data = await Controller.createTask(req.body);
-        res.send(data);
-    }catch(e){
-        console.error(e);
-        res.status(500).render('error', {error : e.toString()});
-    }
-    
-});
+  
+    // Render the 'tasks-view' template with the tasks data
+    res.render('tasks-view', { tasks });
+  });
 
 module.exports = Router;
