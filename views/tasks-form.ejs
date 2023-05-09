@@ -18,7 +18,12 @@
             <textarea class="description" type="textarea" rows="4" name="Description" placeholder="Enter Description"></textarea>
         </div>
         <div>
-            <button class="submit" type="submit">Add To Do</button>
+            <label for="Date"></label>
+             <input type="date" id="Date" name="Date" class="date">
+        </div>
+        <div>
+            <button class="submit" type="submit" 
+            onclick="location.href = 'http://localhost:3000/tasks/view'">Add To Do</button>
         </div>
         </div>
     </form>

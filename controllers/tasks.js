@@ -2,13 +2,18 @@ const {knex} = require('./db');
 
 module.exports = {
     createTask,
-    getAll
+    getAll,
+    deleteTask
 }
 
 async function getAll(){
-    return knex.select().from('ToDoList');
+    return knex.select().from('List');
 }
 
 async function createTask(Task){
-    return knex('Categories').insert(Task); 
+    return knex('List').insert(Task); 
+}
+
+async function deleteTask(Task){
+    return knex('List').delete(Task)
 }

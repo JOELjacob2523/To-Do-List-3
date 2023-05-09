@@ -1,0 +1,22 @@
+body{
+    height: 100vh;
+    width: 100vw;
+    background-color: lightblue;
+}
+
+.checkbox{
+  text-decoration: line-through;
+}
+
+.grib{
+  text-align: center;
+  margin: auto;
+  display: block;
+}
+
+th{
+  text-align: center;
+}
+
+
+  

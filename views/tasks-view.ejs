@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>My Tasks</title>
+	<link rel="stylesheet" href="/static/css/views.css">
+</head>
+
+<body>
+	<h1>My To Do List</h1>
+	<div class="grid">
+		<table class="table">
+			<thead>
+                <th>Subject</th>
+				<th>Description</th>
+                <th>Date</th>
+			</thead>
+			<tbody>
+				<% for(let task of tasks){ %>
+					<tr>
+                        <td><%= task.Subject %></td>
+						<td><%= task.Description%></td>
+                        <td><%= task.Date%></td>
+						<td style="text-decoration: none;">
+							<input type="checkbox" class="checkbox" 
+							onclick="LineThrough()">
+							<label for="checkbox">Mark As Done</label>
+							<button type="button" onclick="deleteTask()">Delete</button>
+					</td>
+					</tr>
+				<% } %>
+			</tbody>
+		</table>
+	</div>
+	<script>
+		function LineThrough(checkbox) {
+				checkbox.style.textDecoration = 'line-through';
+			}
+	</script>
+</body>
+
+</html>
