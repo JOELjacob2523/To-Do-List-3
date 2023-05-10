@@ -8,7 +8,7 @@ body{
   text-decoration: line-through;
 }
 
-.grib{
+div.grib{
   text-align: center;
   margin: auto;
   display: block;
@@ -20,17 +20,21 @@ h1{
 
 th{
   text-align: center;
-  border: darkblue solid 2px;
+  font-size: large;
+  color: rgb(80, 80, 245);
 }
 
 .table{
-  margin-left: auto;
-  margin-right: auto;
-  border: darkblue solid 2px;
+  margin: auto;
+  border: rgb(195, 195, 240) solid 2px;
+  display: block;
+  width: 1200px;
+  border-radius: 10px;
 }
 
 td{
-  border: darkblue solid 2px;
+  margin-left: 10px;
+  font-size: larger;
 }
 
 

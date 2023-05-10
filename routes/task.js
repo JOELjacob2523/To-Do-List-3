@@ -24,4 +24,14 @@ Router.get('/create', async (req, res, next) => {
     res.render('tasks-view', { tasks });
   });
 
+  Router.post('/delete-task', async(req, res) => {
+    var index = req.body.index;
+    // Delete task with given index from the database
+    // ...
+    res.send('Task deleted successfully.');
+
+    res.redirect('/tasks/view');
+});
+
+
 module.exports = Router;
