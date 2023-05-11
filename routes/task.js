@@ -17,21 +17,19 @@ Router.get('/create', async (req, res, next) => {
   
   // Route handler for GET '/view'
   Router.get('/view', async (req, res, next) => {
-    // Get all tasks from the database
-    let tasks = await Controller.getAll();
-  
-    // Render the 'tasks-view' template with the tasks data
+    let tasks = await Controller.getAll();  
     res.render('tasks-view', { tasks });
   });
-
-  Router.post('/delete-task', async(req, res) => {
-    var index = req.body.index;
-    // Delete task with given index from the database
-    // ...
-    res.send('Task deleted successfully.');
-
-    res.redirect('/tasks/view');
-});
-
+  
+  Router.post('/delete', async (req, res, next) => {
+    try{
+      await Controller.deleteTask(req.body.ListID);
+      res.redirect('/tasks/view');
+    }catch(e){
+      console.error(e);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+  
 
 module.exports = Router;

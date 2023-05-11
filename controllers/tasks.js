@@ -14,6 +14,6 @@ async function createTask(Task){
     return knex('List').insert(Task); 
 }
 
-async function deleteTask(Task){
-    return knex('List').delete(Task)
-}
+async function deleteTask(id){
+      return knex('List').where('ListID', id).del();
+  }

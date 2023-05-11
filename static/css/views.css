@@ -4,10 +4,6 @@ body{
     background-color: lightblue;
 }
 
-.checkbox{
-  text-decoration: line-through;
-}
-
 div.grib{
   text-align: center;
   margin: auto;
@@ -37,5 +33,27 @@ td{
   font-size: larger;
 }
 
+#back-btn{
+  text-align: center;
+  height: 40px;
+  display: block;
+  margin: auto;
+  font-weight: bold;
+  color: blue;
+  font-size: x-large;
+  border-radius: 25px;
+  background-color: rgb(140, 243, 243);
+  margin-right: 40%;
+  margin-left: 40%;
+  margin-top: 25px;
+}
+
+.line{
+  text-decoration: none;
+}
+
+.line.strikethrough{
+  text-decoration: line-through;
+}
 
   

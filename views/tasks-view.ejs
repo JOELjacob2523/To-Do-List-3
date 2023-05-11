@@ -21,20 +21,38 @@
 			</thead>
 			<tbody>
 				<% for(let task of tasks){ %>
-					<tr>
+					<tr class="line">
                         <td><%= task.Subject %></td>
 						<td><%= task.Description%></td>
                         <td><%= task.Date%></td>
 						<td>
-							<input type="checkbox" class="checkbox" id="checkbox">
-							<label for="checkbox">Mark As Done</label>
-							<button type="button" class="delete-task-btn" data-id="<%= task.id %>">Delete</button>
+							<form class="form-inline" action="">
+								<input type="checkbox" class="checkbox" id="checkbox">
+								<label for="checkbox">Mark As Done</label>
+							</form>
+							<form action="/tasks/delete" method="POST">
+								<input type="hidden" name="ListID" value="<%= task.ListID %>">
+								<input type="submit" value="Delete">
+							</form>
 						</td>
 					</tr>
 				<% } %>
 			</tbody>
 		</table>
 	</div>
-</body>
+	<a href="/tasks/create" class="button" id="back-btn">Click Here To Add A New Task</a>
+	<script>
+		const checkbox = document.querySelector('.checkbox');
+		const item = document.querySelector('.item');
 
+		checkbox.addEventListener('change', function() {
+  		if (this.checked) {
+   		item.classList.add('strikethrough');
+  		} else {
+    	item.classList.remove('strikethrough');
+ 	  }
+	});
+
+	</script>
+</body>
 </html>
