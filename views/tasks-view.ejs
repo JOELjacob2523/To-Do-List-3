@@ -18,6 +18,7 @@
                 <th>Subject</th>
 				<th>Description</th>
                 <th>Date</th>
+				<th>Time</th>
 			</thead>
 			<tbody>
 				<% for(let task of tasks){ %>
@@ -25,6 +26,7 @@
                         <td><%= task.Subject %></td>
 						<td><%= task.Description%></td>
                         <td><%= task.Date%></td>
+						<td><%= task.Time%></td>
 						<td>
 							<form class="form-inline" action="">
 								<input type="checkbox" class="checkbox" id="checkbox">
