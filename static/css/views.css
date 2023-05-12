@@ -4,8 +4,7 @@ body{
     background-color: lightblue;
 }
 
-div.grib{
-  text-align: center;
+.grid{
   margin: auto;
   display: block;
 }
@@ -48,12 +47,18 @@ td{
   margin-top: 25px;
 }
 
-.line{
-  text-decoration: none;
+.grid .tableBody .buttons{
+  float: left;
+  width: 33.33%;
+  padding: 5px;
+  background-color: green;
+  color: wheat;
 }
 
-.line.strikethrough{
-  text-decoration: line-through;
+.grid .tableBody .buttons::after {
+  content: "";
+  clear: both;
+  display: table;
 }
 
   
