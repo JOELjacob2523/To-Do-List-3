@@ -30,6 +30,21 @@ Router.get('/create', async (req, res, next) => {
       res.status(500).json({ error: 'Internal server error' });
     }
   });
+
+  Router.get('/update', async(req, res, next) => {
+        let tasks = await Controller.getAll();
+        res.render('update-task', { tasks });
+ });
+  
+  Router.post('/update', async(req, res, next) => {
+    try{
+    await Controller.updateTask(req.body);
+    res.redirect('/tasks/view');
+    }catch(e){
+      console.error(e);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
   
 
 module.exports = Router;

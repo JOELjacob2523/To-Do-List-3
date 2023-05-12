@@ -3,7 +3,8 @@ const {knex} = require('./db');
 module.exports = {
     createTask,
     getAll,
-    deleteTask
+    deleteTask,
+    updateTask
 }
 
 async function getAll(){
@@ -17,3 +18,9 @@ async function createTask(Task){
 async function deleteTask(id){
       return knex('List').where('ListID', id).del();
   }
+
+  async function updateTask(Task) {
+    const { ListID, Subject, Description, Date, Time } = Task;
+    return knex('List').where('ListID', ListID).update({ Subject, Description, Date, Time });
+  }
+  

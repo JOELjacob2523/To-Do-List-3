@@ -41,6 +41,9 @@
 								<input type="submit" value="Delete">
 							</form>
 						</div>
+						<div>
+							<a href="/tasks/update">Edit</a>
+						</div>
 						</td>
 					</tr>
 				<% } %>
@@ -49,18 +52,5 @@
 		</table>
 	</div>
 	<a href="/tasks/create" class="button" id="back-btn">Click Here To Add A New Task</a>
-	<script>
-		const checkbox = document.querySelector('.checkbox');
-		const item = document.querySelector('.item');
-
-		checkbox.addEventListener('change', function() {
-  		if (this.checked) {
-   		item.classList.add('strikethrough');
-  		} else {
-    	item.classList.remove('strikethrough');
- 	  }
-	});
-
-	</script>
 </body>
 </html>
