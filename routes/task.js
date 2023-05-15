@@ -17,13 +17,16 @@ Router.get('/create', async (req, res, next) => {
   
   // Route handler for GET '/view'
   Router.get('/view', async (req, res, next) => {
-    let tasks = await Controller.getAll();  
-    res.render('tasks-view', { tasks });
+    let tasks = await Controller.getAll();
+    for (let task of tasks){
+      task.done = task.done ? true : false;
+    }
+    res.render('tasks-view', { tasks: tasks });
   });
   
-  Router.post('/delete', async (req, res, next) => {
+  Router.post('/delete/:taskId', async (req, res, next) => {
     try{
-      await Controller.deleteTask(req.body.ListID);
+      await Controller.deleteTask(req.params.taskId);
       res.redirect('/tasks/view');
     }catch(e){
       console.error(e);
@@ -31,10 +34,15 @@ Router.get('/create', async (req, res, next) => {
     }
   });
 
-  Router.get('/update', async(req, res, next) => {
-        let tasks = await Controller.getAll();
-        res.render('update-task', { tasks });
- });
+  Router.get('/edit/:taskId', async(req, res, next) => {
+    try {
+      let tasks = await Controller.getID(req.params.taskId);
+      res.render('update-task', { tasks });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
   
   Router.post('/update', async(req, res, next) => {
     try{

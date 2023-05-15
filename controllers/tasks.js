@@ -4,7 +4,8 @@ module.exports = {
     createTask,
     getAll,
     deleteTask,
-    updateTask
+    updateTask,
+    getID
 }
 
 async function getAll(){
@@ -23,4 +24,7 @@ async function deleteTask(id){
     const { ListID, Subject, Description, Date, Time } = Task;
     return knex('List').where('ListID', ListID).update({ Subject, Description, Date, Time });
   }
-  
+
+  async function getID(ListID){
+    return knex.select().from('List').where('ListID', ListID);
+}

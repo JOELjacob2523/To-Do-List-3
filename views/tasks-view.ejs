@@ -7,12 +7,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>My Tasks</title>
 	<link rel="stylesheet" href="/static/css/views.css">
-	<script type="text/javascript" src="help.js"></script>
 </head>
 
 <body>
 	<h1>My To Do List</h1>
-	<div class="grid">
+	<div>
 		<table class="table">
 			<div class="header">
 				<thead>
@@ -20,6 +19,7 @@
 					<th>Description</th>
               		<th>Date</th>
 					<th>Time</th>
+					<th></th>
 				</thead>
 			</div>
 			<div class="tableBody">
@@ -31,19 +31,24 @@
                         <td><%= task.Date%></td>
 						<td><%= task.Time%></td>
 						<td>
-							<div class="checkbox">
-								<input type="checkbox" id="checkbox">
-								<label for="checkbox">Mark As Done</label>
-							</div>
-							<div class="buttons">
-							<form action="/tasks/delete" method="POST">
+						<div class="dlt-edit">
+							<form action="/tasks/edit/<%= task.ListID %>" method="GET">
+								<input type="submit" value="Edit" class="edit">
+							</form>
+							<form id="delete-form" action="/tasks/delete/<%= task.ListID %>" method="POST">
 								<input type="hidden" name="ListID" value="<%= task.ListID %>">
-								<input type="submit" value="Delete">
+								<input type="submit" value="Delete" class="delete-btn" onclick="showConfirmation(event)">
 							</form>
 						</div>
-						<div>
-							<a href="/tasks/update">Edit</a>
-						</div>
+						<div id="confirmation-modal" class="modal">
+							<div class="modal-content">
+							  <p>Are You Sure You Want To Delete This Task?</p>
+							  <div class="modal-buttons">
+								<button id="confirm-delete-btn">Delete</button>
+								<button id="cancel-delete-btn">Cancel</button>
+							  </div>
+							</div>
+						  </div>						  
 						</td>
 					</tr>
 				<% } %>
@@ -51,6 +56,28 @@
 		</div>
 		</table>
 	</div>
-	<a href="/tasks/create" class="button" id="back-btn">Click Here To Add A New Task</a>
+	<button type="button" class="button" id="back-btn" 
+	onclick="window.location.href='/tasks/create'">Click Here To Add A New Task</button>
+	<script>
+		function showConfirmation(event) {
+  event.preventDefault(); // Prevent default form submission behavior
+  
+  // Display confirmation pop-up
+  var modal = document.getElementById('confirmation-modal');
+  modal.style.display = 'block';
+  
+  // Set up event listeners for the confirmation buttons
+  var confirmBtn = document.getElementById('confirm-delete-btn');
+  var cancelBtn = document.getElementById('cancel-delete-btn');
+  confirmBtn.addEventListener('click', function() {
+    document.getElementById('delete-form').submit();
+  });
+  cancelBtn.addEventListener('click', function() {
+    modal.style.display = 'none';
+  });
+}
+
+	  </script>
+	  
 </body>
 </html>

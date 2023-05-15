@@ -4,11 +4,21 @@ body{
     background-color: rgb(113, 205, 236);
 }
 
+.form {
+    background-color: dodgerblue;
+    width: 950px;
+    display: block;
+    margin: auto;
+    border-radius: 15px;
+    height: 550px;
+}
+
 h1{
-    color: rgb(0, 153, 255);
+    color: rgb(3, 119, 197);
     text-align: center;
     display: block;
     margin-top: 50px;
+    font-size: 50px;
 }
 
 .subject{
@@ -17,9 +27,10 @@ h1{
     margin-top: 50px;
     width: 700px;
     height: 40px;
-    background-color:rgb(175, 199, 242) ;
+    background-color:rgb(236, 245, 245) ;
     border-radius: 10px;
     font-size: large;
+    padding: 10px;
 }
 
 .description{
@@ -28,15 +39,17 @@ h1{
     margin-top: 5px;
     width: 700px;
     height: 150px;
-    background-color:rgb(175, 199, 242) ;
+    background-color:rgb(236, 245, 245) ;
     border-radius: 10px;
     font-size: large;
+    padding: 10px;
+    font-family: 'Calibri';
 }
 
 .submit{
-    background-color: rgb(47, 141, 212);
-    color: rgb(169, 234, 237);
-    font-size: larger;
+    background-color: rgb(136, 194, 239);
+    color: rgb(7, 105, 225);
+    font-size:x-large;
     padding: 10px 20px;
     text-align: center;
     text-decoration: none;
@@ -44,12 +57,12 @@ h1{
     margin: auto;
     cursor: pointer;
     border-radius: 25px;
-    width: 500px;
+    width: 400px;
     margin-top: 50px;
 }
 
 p{
-    color: rgb(111, 111, 242);
+    color: rgb(167, 226, 241);
     font-size: larger;
     margin: auto;
     display: block;
@@ -62,17 +75,19 @@ p{
 #Date{
     margin: auto;
     display: block;
-    background-color:rgb(175, 199, 242) ;
+    background-color:rgb(236, 245, 245) ;
     height: 35px;
     width: 600px;
     border-radius: 10px;
+    padding: 10px;
 }
 
 #time{
     margin: auto;
     display: block;
-    background-color:rgb(175, 199, 242) ;
+    background-color:rgb(236, 245, 245) ;
     height: 35px;
     width: 600px;
     border-radius: 10px;
+    padding: 10px;
 }
