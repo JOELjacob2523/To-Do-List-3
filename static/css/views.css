@@ -111,12 +111,12 @@ td{
   margin-top: 20px;
 }
 
-#confirm-delete-btn, #cancel-delete-btn {
+.confirm-delete-btn, .cancel-delete-btn {
   margin: 15px;
   margin-top: 35PX;
 }
 
-#confirm-delete-btn{
+.confirm-delete-btn{
   background-color: red;
   color: wheat;
   border-radius: 15px;
@@ -125,7 +125,7 @@ td{
   font-size: large;
 }
 
-#cancel-delete-btn{
+.cancel-delete-btn{
   background-color: rgba(120, 240, 188, 0.876);
   color: rgb(255, 132, 0);
   border-radius: 15px;
