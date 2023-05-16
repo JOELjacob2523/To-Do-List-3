@@ -1,6 +1,32 @@
 const Router = require('express').Router();
 const Controller = require('../controllers/tasks');
 
+Router.get('/signup',(req, res, next) => {
+  res.render('signup');
+});
+
+Router.post('/signup', async(req, res, next) => {
+  try{
+    await Controller.createUser(req.body);
+    res.redirect('/tasks/login')
+  } catch(error){
+    console.error('Error inserting user credentials:', error);
+  }
+});
+
+Router.get('/login', (req, res, next) => {
+    res.render('login');
+});
+
+Router.post('/login', async(req, res, next) => {
+  try{
+    await Controller.confirmUser(req.body);
+    res.redirect('/tasks/view')
+  } catch(error){
+    console.error('Error inserting user credentials:', error);
+  }
+});
+
 // Route handler for GET '/create'
 Router.get('/create', async (req, res, next) => {
     res.render('tasks-form');

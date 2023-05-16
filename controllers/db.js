@@ -12,7 +12,9 @@ module.exports = {
             password: CONFIG.DB_PASS,
             database: CONFIG.DATABASE,
             options: {
-                port: CONFIG.DB_PORT || 1433
+                port: CONFIG.DB_PORT || 1433,
+                encrypt: true,
+                trustServerCertificate: true
             }
         }
     })
