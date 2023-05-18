@@ -7,6 +7,7 @@ body{
 h1{
     text-align: center;
     color: rgb(4, 134, 177);
+    font-size: 40px;
 }
 
 .signup{
@@ -15,35 +16,46 @@ h1{
     background-color: cornflowerblue;
     width: 500px;
     border-radius: 10px;
-    height: 600px;
+    height: 375px;
+    padding-top: 40px;
+}
+
+p {
+    text-align: center;
+    font-size: larger;
+    color: mediumblue;
+    margin: auto;
 }
 
 .username {
     display: block;
-    width: 300px;
+    width: 350px;
     margin: auto;
     border-radius: 8px;
     height: 40px;
     background-color: rgb(218, 234, 249);
+    margin-top: 15px;
 }
 
 .password {
     display: block;
-    width: 300px;
+    width: 350px;
     margin: auto;
     border-radius: 8px;
     height: 40px;
     background-color: rgb(218, 234, 249);
+    margin-top: 15px;
 }
 
 .button{
     display: block;
     margin: auto;
     margin-top: 10px;    
-    width: 300px;
-    height: 30px;
+    width: 200px;
+    height: 40px;
     border-radius: 7px;
     background-color: rgb(43, 198, 226);
     color: aliceblue;
     font-size: large;
+    margin-top: 60px;
 }

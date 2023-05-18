@@ -2,5 +2,12 @@ CREATE TABLE List (
 ListID BIGINT IDENTITY (1,1) PRIMARY KEY,
 Subject VARCHAR(255),
 Description VARCHAR(255),
-Date DATETIME,
+Date DATE,
+Time TIME,
+);
+
+CREATE TABLE users (
+  id INT PRIMARY KEY IDENTITY,
+  username VARCHAR(255) NULL,
+  password VARCHAR(255) NULL
 );

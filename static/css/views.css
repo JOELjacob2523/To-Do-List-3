@@ -1,8 +1,7 @@
 body{
     height: 100vh;
     width: 100vw;
-    background-color: lightblue;
-    box-sizing: border-box;
+    background-color: rgb(97, 193, 226);
 }
 
 h1{
@@ -11,49 +10,102 @@ h1{
   color: rgb(2, 78, 129);
 }
 
-th{
-  text-align: center;
-  font-size: x-large;
-  color: rgb(80, 80, 245);
-  background-color: rgb(133, 189, 245);
-  height: 40px;
-  width: 500px;
-}
-
-.table{
+.body{
   margin: auto;
-  border: rgb(195, 195, 240) solid 2px;
   display: block;
-  width: 1200px;
+  width: 1000px;
+  background-color: rgb(173, 220, 249);
+  padding-top: 10px;
+  padding-bottom: 10px;
   border-radius: 10px;
-  background-color: rgb(150, 211, 249);
 }
 
-tr:hover{
-  background-color: rgb(174, 174, 221);
+.task-info{
+  margin: auto;
+  display: block;
+  background-color: aquamarine;
+  width: 600px;
+  border-radius: 10px;
+  padding-top: 1px;
+  padding-bottom: 10px;
+  position: relative;
 }
 
-tr:nth-child(even){
-  background-color: rgb(224, 189, 189);
+.complete{
+  display: none;
+  position: absolute;
+  font-size: 75px;
+  margin: auto;
+  margin-left: 150px;
+  color: darkgreen;
+  top: 0;
+  margin-top: 100px;
 }
 
-td{
-  margin-left: 10px;
-  font-size: larger;
+.task-desc {
+  align-items: center;
+}
+
+.input-desc {
+    background-color: rgb(157, 201, 245);
+    color:rgb(38, 27, 184);
+    border-radius: 10px;
+    width: 400px;
+    display: flex;
+    margin: auto;
+    height: 40px;
+    font-size: 25px;
+    justify-content: center;
+    align-items: center;
+    border-color: cornflowerblue solid 3px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.th {
+    color: rgb(1, 1, 103);
+    font-size: 20px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 30px;
+    margin: auto;
+    border-radius: 10px;
+}
+
+.checkbox {
+  font-size: large;
+  margin-top: 10px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .button {
-  text-align: center;
   height: 40px;
-  display: block;
-  margin: auto;
   color: wheat;
   font-size: large;
   border-radius: 25px;
-  background-color: blue;
-  margin-top: 25px;
+  background-color: rgb(49, 49, 216);
   cursor: pointer;
-  width: 350px;
+  width: 200px;
+  display: block;
+  margin: auto;
+  margin-top: 65px;
+}
+
+.add-btn-div {
+  background-color: beige;
+  width: 400px;
+  height: 300px;
+  overflow: auto;
+  border-radius: 7px;
+  float: left;
+  margin-left: 20px;
+}
+
+.add-btn-p {
+  font-size: 40px;
+  text-align: center;
+  color: rgb(67, 113, 114);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .delete-btn {
@@ -63,7 +115,7 @@ td{
   width: 100px;
   height: 30px;
   cursor: pointer;
-  margin-top: 10px;
+  margin-left: 5px;
 }
 
 .edit {
@@ -73,15 +125,15 @@ td{
   width: 100px;
   height: 30px;
   cursor: pointer;
+  margin-right: 5px;
 }
 
 .dlt-edit {
-  text-align: center;
-}
-
-.edit .delete-btn {
-  margin: 15px;
-  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .modal {
@@ -109,11 +161,9 @@ td{
 
 .modal-buttons {
   margin-top: 20px;
-}
-
-.confirm-delete-btn, .cancel-delete-btn {
-  margin: 15px;
-  margin-top: 35PX;
+  display: inline-block;
+  margin: 5px 15px;
+  padding: 10px 20px;
 }
 
 .confirm-delete-btn{
@@ -123,6 +173,7 @@ td{
   width: 100px;
   height: 30px;
   font-size: large;
+  margin-right: 15px;
 }
 
 .cancel-delete-btn{
@@ -132,9 +183,10 @@ td{
   width: 100px;
   height: 30px;
   font-size: large;
+  margin-left: 15px;
 }
 
-p{
+.confirm-p{
   color: blue;
   font-size: 40px;
 }

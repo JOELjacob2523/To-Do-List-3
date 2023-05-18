@@ -16,6 +16,8 @@ h1{
     display: block;
     background-color: aqua;
     border-radius: 10px;
+    padding: 12px;
+    padding-bottom: 20px;
 }
 
 p{
@@ -33,6 +35,7 @@ p{
    cursor: pointer;
    font-size: large;
    margin-top: 15px;
+   margin-left: 10px;
 }
 
 .button{
@@ -43,6 +46,7 @@ p{
    background-color: gray;
    cursor: pointer;
    font-size: large;
+   margin-right: 10px;
 }
 
 .update-btn .button {
@@ -60,7 +64,7 @@ p{
     display: block;
     margin: auto;
     border-radius: 10px;
-    width: 700px;
+    width: 710px;
     height: 50px;    
     background-color:rgb(175, 199, 242);
 }
@@ -91,5 +95,34 @@ p{
     margin: auto;
     width: 500px;
     border-radius: 10px;
-    height: 35px
+    height: 35px;
+    margin-bottom: 30px;
 }
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+  }
+
+  .modal-content {
+    background-color: rgb(55, 188, 240);
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 25%;
+    text-align: center;
+    border-radius: 10px;
+  }
+
+  .p-task{
+    text-align: center;
+    color: blue;
+    font-size: x-large;
+  }

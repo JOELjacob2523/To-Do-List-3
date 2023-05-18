@@ -12,38 +12,49 @@
 <body>
 	<h1>My To Do List</h1>
 	<div>
-		<table class="table">
-			<div class="header">
-				<thead>
-             	   <th>Subject</th>
-					<th>Description</th>
-              		<th>Date</th>
-					<th>Time</th>
-					<th></th>
-				</thead>
-			</div>
-			<div class="tableBody">
-			<tbody>
+		<div class="add-btn-div">
+			<p class="add-btn-p">Click Here To Add A New Task</p>
+			<button type="button" class="button" id="back-btn" 
+				onclick="window.location.href='/tasks/create'">New Task</button>
+	    </div>
+			<div class="body">
 				<% for(let task of tasks){ %>
-					<tr class="line">
-                        <td><%= task.Subject %></td>
-						<td><%= task.Description%></td>
-                        <td><%= task.Date ? task.Date.toLocaleDateString('en-US') : ''%></td>
-						<td><%= task.Time ? new Date(task.Time).toLocaleTimeString('en-US') : '' +1%></td>
-						<td>
+					<div class="task-info">
+					<div class="task-desc">
+						<p class="th">Subject</p>
+                        <p class="input-desc"><%= task.Subject %></p>
+					</div>
+					<div class="task-desc">
+						<p class="th">Description</p>
+						<p class="input-desc"><%= task.Description%></p>
+					</div>
+					<div class="task-desc">
+						<p class="th">Date</p>
+                        <p class="input-desc"><%= task.Date ? task.Date.toLocaleDateString('en-US') : '' %></p>
+					</div>
+					<div class="task-desc">
+						<p class="th">Time</p>
+						<p class="input-desc"><%= task.Time ? new Date(task.Time).toLocaleTimeString('en-US') : ''%></p>
+					</div>
+					<div>												
+						<p class="complete" id="complete-<%= task.ListID %>">Complete</p>
+						<input type="checkbox" class="task-checkbox" id="checkbox-<%= task.ListID %>">
+						<label for="checkbox-<%= task.ListID %>" class="checkbox">Mars As Complete</label>
+					</div>
+				</div>
 						<div class="dlt-edit">
 							<form action="/tasks/edit/<%= task.ListID %>" method="GET">
 								<input type="submit" value="Edit" class="edit">
 							</form>
 							<form id="delete-form-<%= task.ListID %>" action="/tasks/delete/<%= task.ListID %>" method="POST">
 								<input type="hidden" name="taskId" value="<%= task.ListID %>">
-							</form>
 							<button type="button" class="delete-btn" 
 								onclick="showConfirmation('<%= task.ListID %>')">Delete</button>
+							</form>
 						</div>
 						<div id="confirmation-modal-<%= task.ListID %>" class="modal">
 							<div class="modal-content">
-							  <p>Are You Sure You Want To Delete Task With Sunject <%= task.Subject %>?</p>
+							  <p class="confirm-p">Are You Sure You Want To Delete Task With Sunject <%= task.Subject %>?</p>
 							  <div class="modal-buttons">
 								<button class="confirm-delete-btn" 
 								onclick="deleteTask('<%= task.ListID %>')">Delete</button>
@@ -51,34 +62,44 @@
 								onclick="hideConfirmation('<%= task.ListID %>')">Cancel</button>
 							  </div>
 							</div>
-						  </div>						  
-						</td>
-					</tr>
+						  </div>
 				<% } %>
-			</tbody>
 		</div>
-		</table>
 	</div>
-	<button type="button" class="button" id="back-btn" 
-	onclick="window.location.href='/tasks/create'">Click Here To Add A New Task</button>
 	<script>
+		document.addEventListener('DOMContentLoaded', function () {
 		function showConfirmation(taskId) {
 		  // Display the confirmation modal for the specific task
-		  var modal = document.getElementById('confirmation-modal-' + taskId);
+		  let modal = document.getElementById('confirmation-modal-' + taskId);
 		  modal.style.display = 'block';
 		}
 	
 		function hideConfirmation(taskId) {
 		  // Hide the confirmation modal for the specific task
-		  var modal = document.getElementById('confirmation-modal-' + taskId);
+		  let modal = document.getElementById('confirmation-modal-' + taskId);
 		  modal.style.display = 'none';
 		}
 	
 		function deleteTask(taskId) {
-    // Call the delete route for the specific task
-    var form = document.getElementById('delete-form-' + taskId);
-    form.submit();
-  }
+   			// Call the delete route for the specific task
+  			let form = document.getElementById('delete-form-' + taskId);
+   			form.submit();
+ 		}
+
+		 const checkboxes = document.getElementsByClassName('task-checkbox');
+			for (let i = 0; i < checkboxes.length; i++) {
+  			checkboxes[i].addEventListener('click', function() {
+    		const taskId = this.id.split('-')[1]; // Extract the taskId from the checkbox id
+    		const complete = document.getElementById('complete-' + taskId);
+
+    		if (this.checked) {
+      		complete.style.display = 'block';
+    		} else {
+      		complete.style.display = 'none';
+   		 }
+  	});
+}
+});
 	  </script>
 </body>
 </html>

@@ -12,22 +12,40 @@
         <% for(let task of tasks){ %>
                   <div class="form">
                       <form action="/tasks/update" method="POST">
-                        <p>Edit Subjact</p>
-                          <input type="text" name="Subject" value="<%= task.Subject %>" class="input">
+                          <p>Edit Subjact</p>
+                            <input type="text" name="Subject" value="<%= task.Subject %>" class="input">
                           <p>Edit Description</p>
-                          <textarea name="Description" class="description"><%= task.Description %></textarea>
-                          <input type="hidden" name="ListID" value="<%= task.ListID %>">
+                            <textarea name="Description" class="description"><%= task.Description %></textarea>
+                              <input type="hidden" name="ListID" value="<%= task.ListID %>">
                           <p>Edit Date</p>
-                          <input type="date" name="Date" value="<%= task.Date %>" id="Date" class="date">
+                            <input type="date" name="Date" value="<%= task.Date %>" id="Date" class="date">
                           <p>Edit Time</p>
-                          <input type="time" name="Time" id="time" value="<%= task.Time %>" class="time">
+                            <input type="time" name="Time" id="time" value="<%= task.Time %>" class="time">
                           <div class="button-container">
                             <button type="button" class="button" id="back-btn" 
-                            onclick="window.location.href='/tasks/view'">Go Back</button>
-                            <button type="submit" class="update-btn">Save</button>
-                    </div>
+                             onclick="window.location.href='/tasks/view'">Go Back</button>
+                           <button type="submit" class="update-btn" id="update-btn">Save</button>
                     </form>          
                   </div>
-            <% } %>
+            <% } %>            
+            <div id="confirmation-modal" class="modal">
+              <div class="modal-content">
+                <p class="p-task">Task successfully Updated</p>
+            </div>
+    </div>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        let save = document.getElementById('update-btn');
+        save.addEventListener("click", (event) => {
+          event.preventDefault();
+          let model = document.getElementById('confirmation-modal');
+          model.style.display = 'block';
+          setTimeout(() => {
+            model.style.display = 'none';
+            document.querySelector('form').submit();
+          }, 2000);
+        });
+      });
+    </script>
 </body>
 </html>
