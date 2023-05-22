@@ -8,7 +8,6 @@
 	<title>My Tasks</title>
 	<link rel="stylesheet" href="/static/css/views.css">
 </head>
-
 <body>
 	<h1>My To Do List</h1>
 	<div>
@@ -30,23 +29,24 @@
 					</div>
 					<div class="task-desc">
 						<p class="th">Date</p>
-                        <p class="input-desc"><%= task.Date ? task.Date.toLocaleDateString('en-US') : '' %></p>
+                        <p class="input-desc"><%= new Date(task.Date.getTime() + 24 * 60 * 60 * 1000).toLocaleDateString()%></p>
 					</div>
 					<div class="task-desc">
 						<p class="th">Time</p>
-						<p class="input-desc"><%= task.Time ? new Date(task.Time).toLocaleTimeString('en-US') : ''%></p>
+						<p class="input-desc"><%= new Date(task.Time.getTime() + 5 * 60 * 60 * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })%></p>
 					</div>
 					<div>												
 						<p class="complete" id="complete-<%= task.ListID %>">Complete</p>
 						<input type="checkbox" class="task-checkbox" id="checkbox-<%= task.ListID %>">
-						<label for="checkbox-<%= task.ListID %>" class="checkbox">Mars As Complete</label>
+						<label for="checkbox-<%= task.ListID %>" class="checkbox">Mark As Complete</label>
 					</div>
 				</div>
 						<div class="dlt-edit">
 							<form action="/tasks/edit/<%= task.ListID %>" method="GET">
 								<input type="submit" value="Edit" class="edit">
 							</form>
-							<form id="delete-form-<%= task.ListID %>" action="/tasks/delete/<%= task.ListID %>" method="POST">
+							<form id="delete-form-<%= task.ListID %>" action="/tasks/delete/<%= task.ListID %>" 
+								method="POST" class="delete-form">
 								<input type="hidden" name="taskId" value="<%= task.ListID %>">
 							<button type="button" class="delete-btn" 
 								onclick="showConfirmation('<%= task.ListID %>')">Delete</button>
@@ -54,37 +54,44 @@
 						</div>
 						<div id="confirmation-modal-<%= task.ListID %>" class="modal">
 							<div class="modal-content">
-							  <p class="confirm-p">Are You Sure You Want To Delete Task With Sunject <%= task.Subject %>?</p>
+							  <p class="confirm-p">Are You Sure You Want To Delete Task With Subject <%= task.Subject %>?</p>
 							  <div class="modal-buttons">
-								<button class="confirm-delete-btn" 
-								onclick="deleteTask('<%= task.ListID %>')">Delete</button>
+								<button type="submit" class="confirm-delete-btn" 
+								onclick="deleteTask('<%= task.ListID %>')" data-task-id="<%= task.ListID %>" value="Delete">Delete</button>
 								<button class="cancel-delete-btn" 
 								onclick="hideConfirmation('<%= task.ListID %>')">Cancel</button>
 							  </div>
 							</div>
 						  </div>
 				<% } %>
-		</div>
-	</div>
+		</div>			
+</div>
 	<script>
-		document.addEventListener('DOMContentLoaded', function () {
 		function showConfirmation(taskId) {
-		  // Display the confirmation modal for the specific task
-		  let modal = document.getElementById('confirmation-modal-' + taskId);
-		  modal.style.display = 'block';
-		}
+  			let modal = document.getElementById('confirmation-modal-' + taskId);
+  			modal.style.display = 'block';
+  	};
 	
 		function hideConfirmation(taskId) {
-		  // Hide the confirmation modal for the specific task
 		  let modal = document.getElementById('confirmation-modal-' + taskId);
 		  modal.style.display = 'none';
 		}
-	
+
 		function deleteTask(taskId) {
-   			// Call the delete route for the specific task
-  			let form = document.getElementById('delete-form-' + taskId);
-   			form.submit();
- 		}
+		let form = document.getElementById('delete-form-' + taskId);
+		form.submit();
+	}
+
+	 		const confirmDeleteButtons = document.getElementsByClassName('confirm-delete-btn');
+      		for (let i = 0; i < confirmDeleteButtons.length; i++) {
+       		confirmDeleteButtons[i].addEventListener("click", (event) => {
+         	event.preventDefault();
+       		const taskId = confirmDeleteButtons[i].getAttribute('data-task-id'); // Get the task ID from a custom data attribute
+            const confirmationModal = document.getElementById('confirmation-modal-' + taskId);
+            confirmationModal.style.display = 'none';
+            document.getElementById('delete-form-' + taskId).submit();
+        });
+      }
 
 		 const checkboxes = document.getElementsByClassName('task-checkbox');
 			for (let i = 0; i < checkboxes.length; i++) {
@@ -99,7 +106,6 @@
    		 }
   	});
 }
-});
 	  </script>
 </body>
 </html>

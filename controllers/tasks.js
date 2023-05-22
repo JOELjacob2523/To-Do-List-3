@@ -1,5 +1,7 @@
 const {knex} = require('./db');
 const bcrypt = require('bcrypt');
+const { text } = require('body-parser');
+const moment = require('moment-timezone');
 
 module.exports = {
     createTask,
@@ -24,8 +26,8 @@ async function deleteTask(id){
 }
 
 async function updateTask(Task) {
-    const { ListID, Subject, Description, Date, Time } = Task;
-    return knex('List').where('ListID', ListID).update({ Subject, Description, Date, Time });
+  const { ListID, Subject, Description, Date, Time } = Task;
+  return knex('List').where('ListID', ListID).update({ Subject, Description, Date, Time });
 }
 
 async function getID(ListID){
@@ -35,7 +37,7 @@ async function getID(ListID){
 const saltRounds = 10;
 
 async function createUser(userpass) {
-    const { username, password } = userpass;  
+    const { username, password } = userpass;
     // Retrieve the user with the provided username from the database
     const user = await knex('users').where('username', username).first();  
     if (user) {
@@ -53,8 +55,7 @@ async function createUser(userpass) {
   }
 
   async function confirmUser(userpass) {
-    const { username, password } = userpass;    
-    // Retrieve the user with the provided username from the database
+    const { username, password } = userpass;
     const user = await knex('users').where('username', username).first();    
     if (!user) {
       throw new Error('Invalid username or password');

@@ -27,25 +27,6 @@
                            <button type="submit" class="update-btn" id="update-btn">Save</button>
                     </form>          
                   </div>
-            <% } %>            
-            <div id="confirmation-modal" class="modal">
-              <div class="modal-content">
-                <p class="p-task">Task successfully Updated</p>
-            </div>
-    </div>
-    <script>
-      window.addEventListener("DOMContentLoaded", () => {
-        let save = document.getElementById('update-btn');
-        save.addEventListener("click", (event) => {
-          event.preventDefault();
-          let model = document.getElementById('confirmation-modal');
-          model.style.display = 'block';
-          setTimeout(() => {
-            model.style.display = 'none';
-            document.querySelector('form').submit();
-          }, 2000);
-        });
-      });
-    </script>
+            <% } %>
 </body>
 </html>

@@ -10,7 +10,8 @@ Router.post('/signup', async(req, res, next) => {
     await Controller.createUser(req.body);
     res.redirect('/tasks/login')
   } catch(error){
-    console.error('Error inserting user credentials:', error);
+    console.error('Error inserting user credentials:', error);    
+    res.status(400).send('Invalid username or password or usermane already exists')
   }
 });
 
@@ -24,6 +25,7 @@ Router.post('/login', async(req, res, next) => {
     res.redirect('/tasks/view')
   } catch(error){
     console.error('Error inserting user credentials:', error);
+    res.status(400).send('Invalid username or password')
   }
 });
 
@@ -49,11 +51,15 @@ Router.get('/create', async (req, res, next) => {
     }
     res.render('tasks-view', { tasks: tasks });
   });
+
+  Router.get('/popup-msg', (req, res, next) => {
+    res.render('popup-msg', { deleteMsg: 'Task Successfully Deleted'});
+  });
   
   Router.post('/delete/:taskId', async (req, res, next) => {
     try{
       await Controller.deleteTask(req.params.taskId);
-      res.redirect('/tasks/view');
+      res.redirect('/tasks/popup-msg');
     }catch(e){
       console.error(e);
       res.status(500).json({ error: 'Internal server error' });
@@ -69,11 +75,15 @@ Router.get('/create', async (req, res, next) => {
       res.status(500).json({ error: 'Internal server error' });
     }
   });
+
+  Router.get('/update-msg', (req, res, next) => {
+    res.render('update-msg', {updateMsg: 'Task successfully Updated'})
+  })
   
   Router.post('/update', async(req, res, next) => {
     try{
     await Controller.updateTask(req.body);
-    res.redirect('/tasks/view');
+    res.redirect('/tasks/update-msg');
     }catch(e){
       console.error(e);
       res.status(500).json({ error: 'Internal server error' });
