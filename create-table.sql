@@ -4,10 +4,11 @@ Subject VARCHAR(255),
 Description VARCHAR(255),
 Date DATE,
 Time TIME,
+userID BIGINT FOREIGN KEY REFERENCES users(userID)
 );
 
 CREATE TABLE users (
-  id INT PRIMARY KEY IDENTITY,
+  userID BIGINT IDENTITY (1,1) PRIMARY KEY,
   username VARCHAR(255) NULL,
   password VARCHAR(255) NULL
 );

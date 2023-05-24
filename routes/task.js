@@ -1,7 +1,7 @@
 const Router = require('express').Router();
 const Controller = require('../controllers/tasks');
 
-Router.get('/signup',(req, res, next) => {
+Router.get('/signup', async(req, res, next) => {
   res.render('signup');
 });
 
@@ -15,7 +15,7 @@ Router.post('/signup', async(req, res, next) => {
   }
 });
 
-Router.get('/login', (req, res, next) => {
+Router.get('/login', async (req, res, next) => {
     res.render('login');
 });
 
@@ -29,16 +29,22 @@ Router.post('/login', async(req, res, next) => {
   }
 });
 
-// Route handler for GET '/create'
-Router.get('/create', async (req, res, next) => {
-    res.render('tasks-form');
+  Router.get('/create', async (req, res, next) => {  
+    const tasks = await Controller.getAllUserPass(); 
+    res.render('tasks-form', { tasks });
   });
-  
-  // Route handler for POST '/create'
+
   Router.post('/create', async (req, res, next) => {
+    const parsedUserID = parseInt(req.body.userID, 10); // Parse userID to integer    
     // Create the task using data from the form
-    await Controller.createTask(req.body);
-  
+    const task = {
+      Subject: req.body.Subject,
+      Description: req.body.Description,
+      Date: req.body.Date,
+      Time: req.body.Time,
+      userID: parsedUserID // Use the parsed userID
+    };  
+    await Controller.createTask(task);    
     // Redirect to the '/view' route
     res.redirect('/tasks/view');
   });
@@ -52,7 +58,7 @@ Router.get('/create', async (req, res, next) => {
     res.render('tasks-view', { tasks: tasks });
   });
 
-  Router.get('/popup-msg', (req, res, next) => {
+  Router.get('/popup-msg', async (req, res, next) => {
     res.render('popup-msg', { deleteMsg: 'Task Successfully Deleted'});
   });
   
@@ -76,7 +82,7 @@ Router.get('/create', async (req, res, next) => {
     }
   });
 
-  Router.get('/update-msg', (req, res, next) => {
+  Router.get('/update-msg', async (req, res, next) => {
     res.render('update-msg', {updateMsg: 'Task successfully Updated'})
   })
   

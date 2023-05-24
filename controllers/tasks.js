@@ -10,15 +10,20 @@ module.exports = {
     updateTask,
     getID,
     createUser,
-    confirmUser
+    confirmUser,
+    getAllUserPass
 }
 
 async function getAll(){
     return knex.select().from('List');
 }
 
+async function getAllUserPass(){
+  return knex.select('userID').from('users');
+}
+
 async function createTask(Task){
-    return knex('List').insert(Task); 
+    return knex('List').insert(Task).returning('*'); 
 }
 
 async function deleteTask(id){
@@ -26,8 +31,8 @@ async function deleteTask(id){
 }
 
 async function updateTask(Task) {
-  const { ListID, Subject, Description, Date, Time } = Task;
-  return knex('List').where('ListID', ListID).update({ Subject, Description, Date, Time });
+  const { ListID, Subject, Description, Date, Time} = Task;
+  return knex('List').where('ListID', ListID).update({ Subject, Description, Date, Time});
 }
 
 async function getID(ListID){

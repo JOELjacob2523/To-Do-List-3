@@ -11,7 +11,7 @@
 <body>
     <h1>To Do List</h1>
     <div class="form">
-    <form method="post">
+    <form action="/tasks/create" method="post">
             <div class="subject-div">
                 <input class="subject" type="text" name="Subject" placeholder="Enter Subjact">
             </div>
@@ -28,6 +28,14 @@
             <p>Enter Time</p>
             <input type="time" name="Time" id="time" placeholder="hh:mm">
           </div>
+
+          <div>
+            <% for (let i = 0; i < tasks.length; i++) { %>
+              <input type="hidden" name="userID" value="<%= tasks[i].userID %>">
+              <input type="hidden" name="taskUserID" value="<%= tasks[i].userID %>">
+            <% } %>
+          </div>
+          
           
         <div>
             <button class="submit" type="submit">Click To Add Task</button>
