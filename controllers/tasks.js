@@ -11,14 +11,14 @@ module.exports = {
     getID,
     createUser,
     confirmUser,
-    getAllUserPass
+    getUserPassID
 }
 
 async function getAll(){
     return knex.select().from('List');
 }
 
-async function getAllUserPass(){
+async function getUserPassID(){
   return knex.select('userID').from('users');
 }
 

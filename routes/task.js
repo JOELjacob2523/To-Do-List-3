@@ -30,7 +30,7 @@ Router.post('/login', async(req, res, next) => {
 });
 
   Router.get('/create', async (req, res, next) => {  
-    const tasks = await Controller.getAllUserPass(); 
+    const tasks = await Controller.getUserPassID(); 
     res.render('tasks-form', { tasks });
   });
 
