@@ -7,11 +7,14 @@ body{
 h1{
     text-align: center;
     color: darkblue;
+    padding-top: 40px;
 }
 
 h2{
     text-align: center;
     color: blue;
+    padding-top: 20px;
+    padding-bottom: 25px;
 }
 
 .login {

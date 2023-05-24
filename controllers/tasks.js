@@ -14,8 +14,12 @@ module.exports = {
     getUserPassID
 }
 
-async function getAll(){
+/*async function getAll(){
     return knex.select().from('List');
+}*/
+
+async function getAll(){
+  return knex.select().from('List').join('users', {'users.userID': 'List.userID'});
 }
 
 async function getUserPassID(){

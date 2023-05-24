@@ -5,13 +5,17 @@ Router.get('/signup', async(req, res, next) => {
   res.render('signup');
 });
 
+Router.get('/wrong-signup-msg', (req, res, next) => {
+  res.render('wrong-signup-msg', {wrongSignupMsg: 'Usermane already exists'})
+});
+
 Router.post('/signup', async(req, res, next) => {
   try{
     await Controller.createUser(req.body);
     res.redirect('/tasks/login')
   } catch(error){
     console.error('Error inserting user credentials:', error);    
-    res.status(400).send('Invalid username or password or usermane already exists')
+    res.redirect('wrong-signup-msg')
   }
 });
 
@@ -19,13 +23,17 @@ Router.get('/login', async (req, res, next) => {
     res.render('login');
 });
 
+Router.get('/incorrect-login', (req, res, next) => {
+  res.render('incorrect-login', {loginMsg: 'Invalid username or password'})
+});
+
 Router.post('/login', async(req, res, next) => {
   try{
-    await Controller.confirmUser(req.body);
+    await Controller.confirmUser(req.body)
     res.redirect('/tasks/view')
   } catch(error){
     console.error('Error inserting user credentials:', error);
-    res.status(400).send('Invalid username or password')
+    res.redirect('incorrect-login')
   }
 });
 
@@ -51,11 +59,13 @@ Router.post('/login', async(req, res, next) => {
   
   // Route handler for GET '/view'
   Router.get('/view', async (req, res, next) => {
+    if (Controller.confirmUser){
     let tasks = await Controller.getAll();
     for (let task of tasks){
       task.done = task.done ? true : false;
     }
     res.render('tasks-view', { tasks: tasks });
+  }
   });
 
   Router.get('/popup-msg', async (req, res, next) => {
