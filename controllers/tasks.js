@@ -1,7 +1,6 @@
 const {knex} = require('./db');
 const bcrypt = require('bcrypt');
 const { text } = require('body-parser');
-const moment = require('moment-timezone');
 
 module.exports = {
     createTask,
@@ -23,7 +22,7 @@ async function getAll(){
 }
 
 async function getUserPassID(){
-  return knex.select('userID').from('users');
+  return knex.select().from('users');
 }
 
 async function createTask(Task){

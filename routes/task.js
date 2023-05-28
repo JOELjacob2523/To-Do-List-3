@@ -43,29 +43,24 @@ Router.post('/login', async(req, res, next) => {
   });
 
   Router.post('/create', async (req, res, next) => {
-    const parsedUserID = parseInt(req.body.userID, 10); // Parse userID to integer    
-    // Create the task using data from the form
+    const parsedUserID = parseInt(req.body.userID, 10);
     const task = {
       Subject: req.body.Subject,
       Description: req.body.Description,
       Date: req.body.Date,
       Time: req.body.Time,
-      userID: parsedUserID // Use the parsed userID
+      userID: parsedUserID 
     };  
-    await Controller.createTask(task);    
-    // Redirect to the '/view' route
+    await Controller.createTask(task); 
     res.redirect('/tasks/view');
   });
   
-  // Route handler for GET '/view'
   Router.get('/view', async (req, res, next) => {
-    if (Controller.confirmUser){
     let tasks = await Controller.getAll();
     for (let task of tasks){
       task.done = task.done ? true : false;
     }
     res.render('tasks-view', { tasks: tasks });
-  }
   });
 
   Router.get('/popup-msg', async (req, res, next) => {
