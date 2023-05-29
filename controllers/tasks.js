@@ -10,12 +10,13 @@ module.exports = {
     getID,
     createUser,
     confirmUser,
-    getUserPassID
+    getUserPassID,
+    getIDFromList
 }
 
-/*async function getAll(){
-    return knex.select().from('List');
-}*/
+async function getIDFromList(){
+    return knex.select('userID').from('List');
+}
 
 async function getAll(){
   return knex.select().from('List').join('users', {'users.userID': 'List.userID'});
@@ -46,10 +47,8 @@ const saltRounds = 10;
 
 async function createUser(userpass) {
     const { username, password } = userpass;
-    // Retrieve the user with the provided username from the database
     const user = await knex('users').where('username', username).first();  
     if (user) {
-      // User with the provided username exists
       if (user.password !== password) {
         throw new Error('Invalid username or password');
       } else {
@@ -58,7 +57,6 @@ async function createUser(userpass) {
     }  
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    // Insert the user credentials into the `users` table
     await knex('users').insert({ username, password: hashedPassword });
   }
 

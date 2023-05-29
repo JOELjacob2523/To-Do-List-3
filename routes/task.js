@@ -1,5 +1,6 @@
 const Router = require('express').Router();
 const Controller = require('../controllers/tasks');
+const jwt = require("jsonwebtoken");
 
 Router.get('/signup', async(req, res, next) => {
   res.render('signup');
@@ -23,13 +24,9 @@ Router.get('/login', async (req, res, next) => {
     res.render('login');
 });
 
-Router.get('/incorrect-login', (req, res, next) => {
-  res.render('incorrect-login', {loginMsg: 'Invalid username or password'})
-});
-
 Router.post('/login', async(req, res, next) => {
   try{
-    await Controller.confirmUser(req.body)
+    await Controller.confirmUser(req.body);
     res.redirect('/tasks/view')
   } catch(error){
     console.error('Error inserting user credentials:', error);
@@ -37,8 +34,12 @@ Router.post('/login', async(req, res, next) => {
   }
 });
 
+Router.get('/incorrect-login', (req, res, next) => {
+  res.render('incorrect-login', {loginMsg: 'Invalid username or password'})
+});
+
   Router.get('/create', async (req, res, next) => {  
-    const tasks = await Controller.getUserPassID(); 
+    const tasks = await Controller.getUserPassID();
     res.render('tasks-form', { tasks });
   });
 
@@ -50,10 +51,11 @@ Router.post('/login', async(req, res, next) => {
       Date: req.body.Date,
       Time: req.body.Time,
       userID: parsedUserID 
-    };  
-    await Controller.createTask(task); 
-    res.redirect('/tasks/view');
-  });
+    };
+        await Controller.createTask(task); 
+        res.redirect('/tasks/view');
+      }   
+  );
   
   Router.get('/view', async (req, res, next) => {
     let tasks = await Controller.getAll();
@@ -61,10 +63,6 @@ Router.post('/login', async(req, res, next) => {
       task.done = task.done ? true : false;
     }
     res.render('tasks-view', { tasks: tasks });
-  });
-
-  Router.get('/popup-msg', async (req, res, next) => {
-    res.render('popup-msg', { deleteMsg: 'Task Successfully Deleted'});
   });
   
   Router.post('/delete/:taskId', async (req, res, next) => {
@@ -75,6 +73,10 @@ Router.post('/login', async(req, res, next) => {
       console.error(e);
       res.status(500).json({ error: 'Internal server error' });
     }
+  });
+
+  Router.get('/popup-msg', async (req, res, next) => {
+    res.render('popup-msg', { deleteMsg: 'Task Successfully Deleted'});
   });
 
   Router.get('/edit/:taskId', async(req, res, next) => {
