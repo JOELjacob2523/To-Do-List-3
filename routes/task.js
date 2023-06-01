@@ -1,6 +1,6 @@
 const Router = require('express').Router();
+const { parse } = require('dotenv');
 const Controller = require('../controllers/tasks');
-const jwt = require("jsonwebtoken");
 
 Router.get('/signup', async(req, res, next) => {
   res.render('signup');
@@ -12,8 +12,8 @@ Router.get('/wrong-signup-msg', (req, res, next) => {
 
 Router.post('/signup', async(req, res, next) => {
   try{
-    await Controller.createUser(req.body);
-    res.redirect('/tasks/login')
+    await Controller.createUser(req.body.username, req.body.password);
+    res.redirect('/tasks/view')
   } catch(error){
     console.error('Error inserting user credentials:', error);    
     res.redirect('wrong-signup-msg')
@@ -21,7 +21,7 @@ Router.post('/signup', async(req, res, next) => {
 });
 
 Router.get('/login', async (req, res, next) => {
-    res.render('login');
+  res.render('login');
 });
 
 Router.post('/login', async(req, res, next) => {
@@ -32,14 +32,14 @@ Router.post('/login', async(req, res, next) => {
     console.error('Error inserting user credentials:', error);
     res.redirect('incorrect-login')
   }
-});
+});  
 
 Router.get('/incorrect-login', (req, res, next) => {
   res.render('incorrect-login', {loginMsg: 'Invalid username or password'})
 });
 
   Router.get('/create', async (req, res, next) => {  
-    const tasks = await Controller.getUserPassID();
+    const tasks = await Controller.getUserPass();
     res.render('tasks-form', { tasks });
   });
 
@@ -52,6 +52,7 @@ Router.get('/incorrect-login', (req, res, next) => {
       Time: req.body.Time,
       userID: parsedUserID 
     };
+    console.log('User ID:', parsedUserID);
         await Controller.createTask(task); 
         res.redirect('/tasks/view');
       }   
@@ -102,6 +103,5 @@ Router.get('/incorrect-login', (req, res, next) => {
       res.status(500).json({ error: 'Internal server error' });
     }
   });
-  
 
 module.exports = Router;

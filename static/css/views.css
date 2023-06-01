@@ -193,3 +193,16 @@ h1{
   color: blue;
   font-size: 40px;
 }
+
+.logout-btn{
+  float: right;
+  margin-right: 150px;
+  width: 150px;
+  height: 40px;
+  background-color: rgb(159, 159, 243);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  color:midnightblue ;
+  font-weight: bold;
+}

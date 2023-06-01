@@ -1,6 +1,9 @@
 const {knex} = require('./db');
 const bcrypt = require('bcrypt');
 const { text } = require('body-parser');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+const env = require('../.env');
 
 module.exports = {
     createTask,
@@ -10,8 +13,9 @@ module.exports = {
     getID,
     createUser,
     confirmUser,
-    getUserPassID,
-    getIDFromList
+    getUserPass,
+    getIDFromList,
+    getAllFromUsers
 }
 
 async function getIDFromList(){
@@ -22,8 +26,20 @@ async function getAll(){
   return knex.select().from('List').join('users', {'users.userID': 'List.userID'});
 }
 
-async function getUserPassID(){
+/*async function getAll(userId) {
+  return knex.select('List.*')
+  .from('List')
+  .join('users', 'users.userID', '=', 'List.userID')
+  .where('List.userID', userId);
+}*/
+
+
+async function getUserPass(){
   return knex.select().from('users');
+}
+
+async function getAllFromUsers(Username, Password){
+  return knex.select().from('users').where({username: Username, password: Password})
 }
 
 async function createTask(Task){
@@ -43,10 +59,11 @@ async function getID(ListID){
     return knex.select().from('List').where('ListID', ListID);
 }
 
-const saltRounds = 10;
-
-async function createUser(userpass) {
-    const { username, password } = userpass;
+// get config vars
+dotenv.config();
+// access config var
+process.env.TOKEN_KEY;
+async function createUser(username, password, token) {
     const user = await knex('users').where('username', username).first();  
     if (user) {
       if (user.password !== password) {
@@ -55,9 +72,17 @@ async function createUser(userpass) {
         throw new Error('Username already exists');
       }
     }  
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const hashedPassword = await bcrypt.hash(password, 8);
 
-    await knex('users').insert({ username, password: hashedPassword });
+    const payload = {
+      username: username,
+      hashedPassword: hashedPassword
+    };
+
+      token = jwt.sign(payload, process.env.TOKEN_KEY, { expiresIn: '1h' });
+
+      await knex('users').insert({ username, password: hashedPassword, token });
+      console.log(token)
   }
 
   async function confirmUser(userpass) {
@@ -70,5 +95,9 @@ async function createUser(userpass) {
     if (!passwordMatch) {
       throw new Error('Invalid username or password');
     }
-    return user;
+    const decodedToken = jwt.verify(user.token, process.env.TOKEN_KEY);
+    const userId = decodedToken.userID;
+    console.log(userId)
+
+    return {user, userId};
   }
