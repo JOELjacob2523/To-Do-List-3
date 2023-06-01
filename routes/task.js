@@ -13,7 +13,7 @@ Router.get('/wrong-signup-msg', (req, res, next) => {
 Router.post('/signup', async(req, res, next) => {
   try{
     await Controller.createUser(req.body.username, req.body.password);
-    res.redirect('/tasks/view')
+    res.redirect('/tasks/login')
   } catch(error){
     console.error('Error inserting user credentials:', error);    
     res.redirect('wrong-signup-msg')
@@ -26,7 +26,7 @@ Router.get('/login', async (req, res, next) => {
 
 Router.post('/login', async(req, res, next) => {
   try{
-    await Controller.confirmUser(req.body);
+    await Controller.confirmUser(req.body.username, req.body.password);
     res.redirect('/tasks/view')
   } catch(error){
     console.error('Error inserting user credentials:', error);
@@ -59,7 +59,7 @@ Router.get('/incorrect-login', (req, res, next) => {
   );
   
   Router.get('/view', async (req, res, next) => {
-    let tasks = await Controller.getAll();
+    let tasks = await Controller.getAll(req.body.userID);
     for (let task of tasks){
       task.done = task.done ? true : false;
     }

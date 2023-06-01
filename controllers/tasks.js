@@ -26,14 +26,6 @@ async function getAll(){
   return knex.select().from('List').join('users', {'users.userID': 'List.userID'});
 }
 
-/*async function getAll(userId) {
-  return knex.select('List.*')
-  .from('List')
-  .join('users', 'users.userID', '=', 'List.userID')
-  .where('List.userID', userId);
-}*/
-
-
 async function getUserPass(){
   return knex.select().from('users');
 }
@@ -78,15 +70,12 @@ async function createUser(username, password, token) {
       username: username,
       hashedPassword: hashedPassword
     };
-
       token = jwt.sign(payload, process.env.TOKEN_KEY, { expiresIn: '1h' });
-
       await knex('users').insert({ username, password: hashedPassword, token });
-      console.log(token)
   }
 
-  async function confirmUser(userpass) {
-    const { username, password } = userpass;
+  async function confirmUser(username, password, token) {
+    //const { username, password, token } = userpass;
     const user = await knex('users').where('username', username).first();    
     if (!user) {
       throw new Error('Invalid username or password');
@@ -94,10 +83,20 @@ async function createUser(username, password, token) {
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
       throw new Error('Invalid username or password');
-    }
+    }    
+      
+    const hashedPassword = await bcrypt.hash(password, 8);
+    const id = user.userID
+    const payload = {
+      userID: id,
+      username: username,
+      password: hashedPassword
+    };
+    token = jwt.sign(payload, process.env.TOKEN_KEY, { expiresIn: '1h' });
+    await knex('users').where('userID', id).update({token})
     const decodedToken = jwt.verify(user.token, process.env.TOKEN_KEY);
     const userId = decodedToken.userID;
-    console.log(userId)
+    console.log(token)
 
     return {user, userId};
   }
