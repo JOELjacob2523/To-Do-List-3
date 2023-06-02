@@ -36,12 +36,13 @@ h1{
   position: absolute;
   font-size: 75px;
   margin: auto;
-  margin-left: 130px;
-  color: darkgreen;
+  margin-left: 170px;
+  color: rgb(16, 207, 16);
   top: 0;
   margin-top: 120px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Banty';
   font-weight: bold;
+  text-shadow: 2px 2px green;
 }
 
 .task-desc {

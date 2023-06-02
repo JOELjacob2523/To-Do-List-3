@@ -24,15 +24,17 @@ Router.get('/login', async (req, res, next) => {
   res.render('login');
 });
 
-Router.post('/login', async(req, res, next) => {
-  try{
-    await Controller.confirmUser(req.body.username, req.body.password);
-    res.redirect('/tasks/view')
-  } catch(error){
+Router.post('/login', async (req, res, next) => {
+  try {
+    const { user, userId } = await Controller.confirmUser(req.body.username, req.body.password);
+    req.session.userID = userId;
+    req.session.token = user.token;
+    res.redirect('/tasks/view');
+  } catch (error) {
     console.error('Error inserting user credentials:', error);
-    res.redirect('incorrect-login')
+    res.redirect('incorrect-login');
   }
-});  
+});
 
 Router.get('/incorrect-login', (req, res, next) => {
   res.render('incorrect-login', {loginMsg: 'Invalid username or password'})
@@ -44,27 +46,29 @@ Router.get('/incorrect-login', (req, res, next) => {
   });
 
   Router.post('/create', async (req, res, next) => {
-    const parsedUserID = parseInt(req.body.userID, 10);
+    const parsedUserID = req.session.userID;
+    if (!parsedUserID) {
+      return res.status(401).send('Unauthorized');
+    }
     const task = {
       Subject: req.body.Subject,
       Description: req.body.Description,
       Date: req.body.Date,
       Time: req.body.Time,
-      userID: parsedUserID 
+      userID: parsedUserID,
     };
-    console.log('User ID:', parsedUserID);
-        await Controller.createTask(task); 
-        res.redirect('/tasks/view');
-      }   
-  );
-  
+    await Controller.createTask(task);
+    res.redirect('/tasks/view');
+  });
+
   Router.get('/view', async (req, res, next) => {
-    let tasks = await Controller.getAll(req.body.userID);
-    for (let task of tasks){
+    let tasks = await Controller.getAll(req.session.userID);
+    for (let task of tasks) {
       task.done = task.done ? true : false;
     }
     res.render('tasks-view', { tasks: tasks });
   });
+  
   
   Router.post('/delete/:taskId', async (req, res, next) => {
     try{
@@ -102,6 +106,16 @@ Router.get('/incorrect-login', (req, res, next) => {
       console.error(e);
       res.status(500).json({ error: 'Internal server error' });
     }
+  });
+
+  Router.get('/logout', (req, res, next) => {
+    req.session.destroy((err) => {
+      if (err){
+        res.status(400).send('Unable to logout');
+      } else {
+        res.redirect('/tasks/login');
+      }
+    });
   });
 
 module.exports = Router;

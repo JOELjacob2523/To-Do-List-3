@@ -11,6 +11,11 @@
 <body>
 	<h1>My To Do List</h1>
 	<div>
+		<form action="/tasks/logout" method="get">
+			<button type="submit" class="logout-btn">Logout</button>
+		</form>
+	</div>
+	<div>
 		<div class="add-btn-div">
 			<p class="add-btn-p">Click Here To Add A New Task</p>
 			<button type="button" class="button" id="back-btn" 
@@ -29,11 +34,11 @@
 					</div>
 					<div class="task-desc">
 						<p class="th">Date</p>
-                        <p class="input-desc"><%= new Date(task.Date.getTime() + 24 * 60 * 60 * 1000).toLocaleDateString()%></p>
+						<p class="input-desc"><%= new Date(task.Date.getTime() + 24 * 60 * 60 * 1000).toLocaleDateString()%></p>
 					</div>
 					<div class="task-desc">
 						<p class="th">Time</p>
-						<p class="input-desc"><%= new Date(task.Time.getTime() + 5 * 60 * 60 * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })%></p>
+						<p class="input-desc"><%= new Date(task.Time.getTime() + 5 * 60 * 60 * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })%></p>																											  
 					</div>
 					<div>												
 						<p class="complete" id="complete-<%= task.ListID %>">Complete</p>
