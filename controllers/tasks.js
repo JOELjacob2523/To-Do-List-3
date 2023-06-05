@@ -69,7 +69,7 @@ async function createUser(username, password) {
       username: username,
       password: hashedPassword
     };
-      const token = jwt.sign(payload, process.env.TOKEN_KEY, { expiresIn: '1h' });
+      const token = jwt.sign(payload, process.env.TOKEN_KEY);
       await knex('users').insert({ username, password: hashedPassword, token});
   }
 
@@ -93,6 +93,7 @@ async function createUser(username, password) {
     await knex('users').where('userID', id).update({token})
     const decodedToken = jwt.verify(user.token, process.env.TOKEN_KEY);
     const userId = decodedToken.userID;
-
+    if (userId) {
     return {user, userId};
+    }
   }
