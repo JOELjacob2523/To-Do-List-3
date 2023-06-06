@@ -26,19 +26,19 @@
 				<% for(let task of tasks){ %>
 					<div class="task-info">
 					<div class="task-desc">
-						<p class="th">Subject</p>
+						<p class="th">Subject:</p>
                         <p class="input-desc"><%= task.Subject %></p>
 					</div>
 					<div class="task-desc">
-						<p class="th">Description</p>
+						<p class="th">Description:</p>
 						<p class="input-desc"><%= task.Description%></p>
 					</div>
 					<div class="task-desc">
-						<p class="th">Date</p>
+						<p class="th">Date:</p>
 						<p class="input-desc"><%= new Date(task.Date.getTime() + 24 * 60 * 60 * 1000).toLocaleDateString()%></p>
 					</div>
 					<div class="task-desc">
-						<p class="th">Time</p>
+						<p class="th">Time:</p>
 						<p class="input-desc"><%= new Date(task.Time.getTime() + 5 * 60 * 60 * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })%></p>																												  
 					</div>
 					<div>												

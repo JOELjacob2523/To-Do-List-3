@@ -1,5 +1,4 @@
 const Router = require('express').Router();
-const { parse } = require('dotenv');
 const Controller = require('../controllers/tasks');
 
 Router.get('/signup', async(req, res, next) => {
@@ -27,8 +26,8 @@ Router.get('/login', async (req, res, next) => {
 Router.post('/login', async (req, res, next) => {
   try {
     const { user, userId } = await Controller.confirmUser(req.body.username, req.body.password);
-    req.session.userID = userId;
     req.session.token = user.token;
+    req.session.userID = userId;
     res.redirect('/tasks/view');
   } catch (error) {
     console.error('Error inserting user credentials:', error);
