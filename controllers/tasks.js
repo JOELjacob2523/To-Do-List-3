@@ -78,7 +78,7 @@ async function createUser(username, password) {
   await knex("users").insert({ username, password: hashedPassword, token });
 }
 
-async function confirmUser(username, password) {
+/*async function confirmUser(username, password) {
   const user = await knex("users").where("username", username).first();
   if (!user) {
     throw new Error("Invalid username or password");
@@ -101,7 +101,33 @@ async function confirmUser(username, password) {
   if (userId) {
     return { user, userId };
   }
+}*/
+
+async function confirmUser(username, password) {
+  const user = await knex("users").where("username", username).first();
+  if (!user) {
+    throw new Error("Invalid username or password");
+  }
+  const passwordMatch = await bcrypt.compare(password, user.password);
+  if (!passwordMatch) {
+    throw new Error("Invalid username or password");
+  }
+  const hashedPassword = await bcrypt.hash(password, 8);
+  const id = user.userID;
+  const payload = {
+    userID: id,
+    username: username,
+    password: hashedPassword,
+  };
+  const token = jwt.sign(payload, process.env.TOKEN_KEY);
+  await knex("users").where("userID", id).update({ token });
+  
+  const decodedToken = jwt.verify(token, process.env.TOKEN_KEY);
+  const userId = decodedToken.userID;
+  
+  return { user, userId };
 }
+
 
 async function getTime(email) {
   const time = await knex.select("Time").from("List");
@@ -111,7 +137,7 @@ async function getTime(email) {
         service: "gmail",
         auth: {
           user: "shlomejacob@gmail.com",
-          pass: "2523JOELjacob",
+          pass: "JOELjacob9052",
         },
       });
 
