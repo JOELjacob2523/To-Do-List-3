@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/tasks', taskRouter);
 
 app.get('/', (req, res, next) => {
-    res.send('Hello World')
+    res.redirect('/tasks/login')
 });
 
 app.listen(CONFIG.PORT, () => {
