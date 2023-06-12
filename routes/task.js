@@ -66,8 +66,7 @@ Router.get('/incorrect-login', (req, res, next) => {
       task.done = task.done ? true : false;
     }
     res.render('tasks-view', { tasks: tasks });
-  });
-  
+  });  
   
   Router.post('/delete/:taskId', async (req, res, next) => {
     try{

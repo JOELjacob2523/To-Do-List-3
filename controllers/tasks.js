@@ -103,27 +103,27 @@ async function confirmUser(username, password) {
   return { user, userId };
 }
 
-async function getTime(email) {
-  const time = await knex.select("Time").from("List");
-  for (let i = 0; i < time.length; i++) {
-    if (time[i] == new Date(time)) {
+async function taskReminder(email) {
+  const taskData = await knex.select().from("List");
+  for (let i = 0; i < taskData.Time.length; i++) {
+    if (taskData.Time[i] == new Date(taskData.Time)) {
       const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-          user: "shlomejacob@gmail.com",
-          pass: "JOELjacob9052",
+          user: "jsjprog4119@gmail.com",
+          pass: "8452004119",
         },
       });
 
       const mailOptions = {
-        from: "shlomejacob@gmail.com",
+        from: "jsjprog4119@gmail.com",
         to: email,
         subject: `Task Reminder`,
         text: `This is a reminder of your task
-          Subject: 
-          Description:
-          Date:
-          Time:`,
+          Subject: ${taskData.Subject}
+          Description: ${taskData.Description}
+          Date: ${taskData.Date}
+          Time:${taskData.Time}`,
       };
 
       transporter.sendMail(mailOptions, function (error, info) {
