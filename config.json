@@ -1,0 +1,8 @@
+{
+    "PORT": 3000,
+    "DB_SERVER": "localhost",
+    "DB_USER": "webserver",
+    "DB_PASS": "Jacob2523",
+    "DATABASE": "ToDoList",
+    "DB_PORT": 1433
+}
