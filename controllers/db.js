@@ -5,7 +5,7 @@ const Knex = require('knex');
 
 module.exports = {
     knex: Knex({
-        client: 'mssql',
+        client: CONFIG.DB_CONNECTION,
         connection: {
             server: CONFIG.DB_SERVER,
             user: CONFIG.DB_USER,

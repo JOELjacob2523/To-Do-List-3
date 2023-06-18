@@ -9,13 +9,12 @@
 </head>
 <body>
   <div class="delete-msg">
-    <p> <%= updateMsg %> </p>
+    <p> <%= emailSend %> </p>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
           setTimeout(() => {
-            //window.history.go(-2);
-            window.location.replace("/tasks/view");
+            window.history.go(-1);
           },2000)
         })
     </script>

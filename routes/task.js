@@ -66,7 +66,21 @@ Router.get('/incorrect-login', (req, res, next) => {
       task.done = task.done ? true : false;
     }
     res.render('tasks-view', { tasks: tasks });
-  });  
+  });
+
+  Router.get('/email-send', (req, res, next) => {
+    res.render('email-send', {emailSend: 'Email Send Successfully'});
+  });
+
+  Router.post('/email', async (req, res, next) => {
+    try{
+      await Controller.taskReminder();
+      res.redirect('email-send');
+    } catch(err){
+      console.error(err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
   
   Router.post('/delete/:taskId', async (req, res, next) => {
     try{

@@ -2,6 +2,8 @@ const { knex } = require("./db");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
+const nodemailer = require("nodemailer");
+const CONFIG = require('../config.json')
 
 module.exports = {
   createTask,
@@ -14,6 +16,7 @@ module.exports = {
   getUserPass,
   getIDFromList,
   getAllFromUsers,
+  taskReminder
 };
 
 async function getIDFromList() {
@@ -62,12 +65,9 @@ process.env.TOKEN_KEY;
 async function createUser(username, password) {
   const user = await knex("users").where("username", username).first();
   if (user) {
-    if (user.password !== password) {
-      throw new Error("Invalid username or password");
-    } else {
-      throw new Error("Username already exists");
-    }
+    throw new Error("Username already exists");
   }
+  
   const hashedPassword = await bcrypt.hash(password, 8);
 
   const payload = {
@@ -104,26 +104,20 @@ async function confirmUser(username, password) {
 }
 
 async function taskReminder(email) {
-  const taskData = await knex.select().from("List");
-  for (let i = 0; i < taskData.Time.length; i++) {
-    if (taskData.Time[i] == new Date(taskData.Time)) {
+  //const user = await knex("users").where("username", email).first();
       const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
           user: "jsjprog4119@gmail.com",
-          pass: "8452004119",
+          pass: CONFIG.EMAIL_PASS,
         },
       });
 
       const mailOptions = {
         from: "jsjprog4119@gmail.com",
-        to: email,
+        to: "shlomejacob@gmail.com",
         subject: `Task Reminder`,
-        text: `This is a reminder of your task
-          Subject: ${taskData.Subject}
-          Description: ${taskData.Description}
-          Date: ${taskData.Date}
-          Time:${taskData.Time}`,
+        text: `Hello World`
       };
 
       transporter.sendMail(mailOptions, function (error, info) {
@@ -134,5 +128,3 @@ async function taskReminder(email) {
         }
       });
     }
-  }
-}
