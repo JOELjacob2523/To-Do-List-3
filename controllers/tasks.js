@@ -103,8 +103,12 @@ async function confirmUser(username, password) {
   return { user, userId };
 }
 
-async function taskReminder(email) {
+async function taskReminder(email, userId) {
   //const user = await knex("users").where("username", email).first();
+      //const taskdata = await knex("List").select().where({ userID: userId });
+      //const token = await knex("users").select("token")
+      //const decodedToken = jwt.verify(token, process.env.TOKEN_KEY);
+      //const username = decodedToken.username;
       const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
@@ -112,14 +116,13 @@ async function taskReminder(email) {
           pass: CONFIG.EMAIL_PASS,
         },
       });
-
       const mailOptions = {
         from: "jsjprog4119@gmail.com",
-        to: "shlomejacob@gmail.com",
+        to: username,
         subject: `Task Reminder`,
         text: `Hello World`
       };
-
+      console.log(mailOptions)
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
           console.log(error);

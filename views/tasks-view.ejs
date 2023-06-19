@@ -51,9 +51,9 @@
 							<form action="/tasks/edit/<%= task.ListID %>" method="GET">
 								<input type="submit" value="Edit" class="edit">
 							</form>
-							<form action="/tasks/email" method="POST">
+							<!-- <form action="/tasks/email" method="POST">
 								<button type="submit" class="email-btn">Send Email Reminder</button>
-							</form>
+							</form> -->
 							<form id="delete-form-<%= task.ListID %>" action="/tasks/delete/<%= task.ListID %>" 
 								method="POST" class="delete-form">
 								<input type="hidden" name="taskId" value="<%= task.ListID %>">
