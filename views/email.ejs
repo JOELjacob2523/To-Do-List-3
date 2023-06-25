@@ -9,14 +9,27 @@
     color: cornflowerblue;
     font-size: 50px;
     text-align: center;
+    font-family: 'Andalus';
     }
     h2{
     color: cornflowerblue;
-    font-size: 40px; 
+    font-size: 30px;
+    font-family: 'Minion Pro Med';
+    text-align: center;
+    }
+    .task-info{
+        background-color: bisque;
+        border-radius: 10px;
+        width: 600px;
+        margin: auto;
+        display: block;
+        padding-left: 10px;
     }
     .th{
         color: blue;
-        font-size: 30px;
+        font-size: 25px;
+        font-weight: bold;
+        font-family: 'Times New Roman', Times, serif;
     }
     .input-desc{
         color: dodgerblue;
@@ -26,28 +39,14 @@
 </head>
 <body>
     <h1>Task Reminder</h1>
-    <h2>This is a reminder of your task</h2>
-    <div class="body">
+    <h2>This Is A Friendly Reminder Of Your Task</h2>
         <% for(let task of tasks){ %>
             <div class="task-info">
-            <div class="task-desc">
-                <p class="th">Subject:</p>
-                <p class="input-desc"><%= task.Subject %></p>
+                <p class="th">Subject: <span class="input-desc"><%= task.Subject %></span></p>                
+                <p class="th">Description: <span class="input-desc"><%= task.Description%></span></p>                
+                <p class="th">Date: <span class="input-desc"><%= new Date(task.Date.getTime() + 24 * 60 * 60 * 1000).toLocaleDateString()%></span></p>                
+                <p class="th">Time: <span class="input-desc"><%= new Date(task.Time.getTime() + 5 * 60 * 60 * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })%></span></p>                
             </div>
-            <div class="task-desc">
-                <p class="th">Description:</p>
-                <p class="input-desc"><%= task.Description%></p>
-            </div>
-            <div class="task-desc">
-                <p class="th">Date:</p>
-                <p class="input-desc"><%= new Date(task.Date.getTime() + 24 * 60 * 60 * 1000).toLocaleDateString()%></p>
-            </div>
-            <div class="task-desc">
-                <p class="th">Time:</p>
-                <p class="input-desc"><%= new Date(task.Time.getTime() + 5 * 60 * 60 * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })%></p>																												  
-            </div>
-    </div>
-    </div>
     <% } %>
 </body>
 </html>
