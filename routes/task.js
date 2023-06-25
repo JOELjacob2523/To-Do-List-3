@@ -61,26 +61,30 @@ Router.get('/incorrect-login', (req, res, next) => {
   });
 
   Router.get('/view', async (req, res, next) => {
+    try{
     let tasks = await Controller.getAll(req.session.userID);
     for (let task of tasks) {
       task.done = task.done ? true : false;
     }
     res.render('tasks-view', { tasks: tasks });
-  });
+  }catch(err){
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }});
 
-  Router.get('/email-send', (req, res, next) => {
-    res.render('email-send', {emailSend: 'Email Send Successfully'});
-  });
-
-  Router.post('/email', async (req, res, next) => {
-    try{
-      let email = await Controller.taskReminder();
-      console.log(email)
+  Router.post('/email/:taskId', async (req, res, next) => {
+    try {
+      let user = await Controller.taskReminder(req.session.userID, req.params.taskId);
+      console.log(user);
       res.redirect('email-send');
-    } catch(err){
+    } catch (err) {
       console.error(err);
       res.status(500).json({ error: 'Internal server error' });
     }
+  });  
+
+  Router.get('/email/email-send', (req, res, next) => {
+    res.render('email-send', {emailSend: 'Email Send Successfully'});
   });
   
   Router.post('/delete/:taskId', async (req, res, next) => {
