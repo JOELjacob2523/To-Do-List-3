@@ -75,7 +75,6 @@ Router.get('/incorrect-login', (req, res, next) => {
   Router.post('/email/:taskId', async (req, res, next) => {
     try {
       let user = await Controller.taskReminder(req.session.userID, req.params.taskId);
-      console.log(user);
       res.redirect('email-send');
     } catch (err) {
       console.error(err);
