@@ -27,11 +27,11 @@
 					<div class="task-info">
 					<div class="task-desc">
 						<p class="th">Subject:</p>
-                        <p class="input-desc"><%= task.Subject %></p>
+                        <p class="input-desc"><%= task.Subject.charAt(0).toUpperCase() + task.Subject.slice(1) %></p>
 					</div>
 					<div class="task-desc">
 						<p class="th">Description:</p>
-						<p class="input-desc-text"><%= task.Description%></p>
+						<p class="input-desc-text"><%= task.Description.charAt(0).toUpperCase() + task.Description.slice(1) %></p>
 					</div>
 					<div class="task-desc">
 						<p class="th">Date:</p>

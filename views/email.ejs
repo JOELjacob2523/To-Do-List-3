@@ -35,8 +35,8 @@
     <h1>This Is a Friendly Reminder of Your Task</h1>
         <% for(let task of tasks){ %>
             <div class="task-info">
-                <p class="th">Subject: <span class="input-desc"><%= task.Subject %></span></p>                
-                <p class="th">Description: <span class="input-desc"><%= task.Description%></span></p>                
+                <p class="th">Subject: <span class="input-desc"><%= task.Subject.charAt(0).toUpperCase() + task.Subject.slice(1) %></span></p>                
+                <p class="th">Description: <span class="input-desc"><%= task.Description.charAt(0).toUpperCase() + task.Description.slice(1) %></span></p>                
                 <p class="th">Date: <span class="input-desc"><%= new Date(task.Date.getTime() + 24 * 60 * 60 * 1000).toLocaleDateString()%></span></p>                
                 <p class="th">Time: <span class="input-desc"><%= new Date(task.Time.getTime() + 5 * 60 * 60 * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })%></span></p>                
             </div>
