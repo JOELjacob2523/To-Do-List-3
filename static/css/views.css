@@ -61,7 +61,7 @@ h1{
     display: flex;
     margin: auto;
     height: 60px;
-    font-size: 25px;
+    font-size: 20px;
     justify-content: center;
     align-items: center;
     border-color: cornflowerblue solid 3px;
@@ -77,13 +77,13 @@ h1{
     display: grid;
     margin: auto;
     height: 60px;
-    font-size: 25px;
+    font-size: 20px;
     justify-content: center;
     align-items: center;
     border-color: cornflowerblue solid 3px;
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
-    overflow: scroll;
+    line-height: 90%;
 }
 
 .th {
@@ -116,6 +116,10 @@ h1{
   margin-top: 65px;
 }
 
+.button:hover{
+  background-color: rgb(105, 105, 209);
+}
+
 .add-btn-div {
   background-color: beige;
   width: 400px;
@@ -143,6 +147,10 @@ h1{
   margin-left: 5px;
 }
 
+.delete-btn:hover{
+  background-color: rgb(242, 108, 108);
+}
+
 .edit {
   background-color: orange;
   color: yellow;
@@ -151,6 +159,10 @@ h1{
   height: 30px;
   cursor: pointer;
   margin-right: 5px;
+}
+
+.edit:hover{
+  background-color: rgb(245, 198, 111);
 }
 
 .dlt-edit {
@@ -230,6 +242,10 @@ h1{
   font-weight: bold;
 }
 
+.logout-btn:hover{
+  background-color: rgb(184, 184, 245);
+}
+
 .logout-div {
   background-color: beige;
   width: 250px;
@@ -257,4 +273,8 @@ h1{
   margin-left: 15px;
   margin-right: 15px;
   border-color:brown;
+}
+
+.email-btn:hover{
+  background-color:rgb(7, 193, 193);
 }
