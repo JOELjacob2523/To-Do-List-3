@@ -69,6 +69,23 @@ h1{
     text-align: center;
 }
 
+.input-desc-text{
+    background-color: rgb(157, 201, 245);
+    color:rgb(38, 27, 184);
+    border-radius: 10px;
+    width: 400px;
+    display: grid;
+    margin: auto;
+    height: 60px;
+    font-size: 25px;
+    justify-content: center;
+    align-items: center;
+    border-color: cornflowerblue solid 3px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    overflow: scroll;
+}
+
 .th {
     color: rgb(1, 1, 103);
     font-size: 20px;

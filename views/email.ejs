@@ -7,15 +7,9 @@
     <style>
     h1 {
     color: cornflowerblue;
-    font-size: 50px;
+    font-size: 40px;
     text-align: center;
     font-family: 'Andalus';
-    }
-    h2{
-    color: cornflowerblue;
-    font-size: 30px;
-    font-family: 'Minion Pro Med';
-    text-align: center;
     }
     .task-info{
         background-color: bisque;
@@ -38,8 +32,7 @@
     </style>
 </head>
 <body>
-    <h1>Task Reminder</h1>
-    <h2>This Is A Friendly Reminder Of Your Task</h2>
+    <h1>This Is a Friendly Reminder of Your Task</h1>
         <% for(let task of tasks){ %>
             <div class="task-info">
                 <p class="th">Subject: <span class="input-desc"><%= task.Subject %></span></p>                
