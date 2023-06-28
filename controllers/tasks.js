@@ -104,78 +104,36 @@ async function confirmUser(username, password) {
   return { user, userId };
 }
 
-    /*async function taskReminder(userId, taskId) {
-      try {
-        let user = await knex.select("username").from("users").where({ userID: userId }).first();
-        let tasks = await knex.select().from("List").where({ userID: userId, ListID: taskId });
-        const transporter = nodemailer.createTransport({
-          service: "gmail",
-          auth: {
-            user: "jsjprog4119@gmail.com",
-            pass: CONFIG.EMAIL_PASS,
-          },
-        });
+async function taskReminder(userId, taskId) {
+   try {
+     let user = await knex.select("username").from("users").where({ userID: userId }).first();
+     let tasks = await knex.select().from("List").where({ userID: userId, ListID: taskId });
+     const transporter = nodemailer.createTransport({
+       service: "gmail",
+       auth: {
+         user: "jsjprog4119@gmail.com",
+         pass: CONFIG.EMAIL_PASS,
+         },
+     });
+        ejs.renderFile('views/email.ejs', {tasks}, function (err, data) {
+          if (err) {
+            console.log(err)
+          } else {
+          const mailOptions = {
+            from: "jsjprog4119@gmail.com",
+            to: user.username,
+            subject: `Task Reminder`,
+            html: data
+          };
     
-        if (Array.isArray(tasks)) {
-          for (const task of tasks) {
-            const mailOptions = {
-              from: "jsjprog4119@gmail.com",
-              to: user.username,
-              subject: `Task Reminder`,
-              text: `This is a reminder of your task
-                Subject: ${task.Subject}
-                Description: ${task.Description}
-                Date: ${new Date(task.Date.getTime() + 24 * 60 * 60 * 1000).toLocaleDateString()}
-                Time: ${new Date(task.Time.getTime() + 5 * 60 * 60 * 1000).toLocaleTimeString('en-US', 
-                { hour: '2-digit', minute: '2-digit' })}`
-            };
-    
-            transporter.sendMail(mailOptions, function (error, info) {
-              if (error) {
-                console.log(error);
-              } else {
-                console.log("Email sent: " + info.response);
-              }
-            });
-          }
-        } else {
-          console.log("No tasks found for the user.");
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    }*/
-
-    async function taskReminder(userId, taskId) {
-      try {
-        let user = await knex.select("username").from("users").where({ userID: userId }).first();
-        let tasks = await knex.select().from("List").where({ userID: userId, ListID: taskId });
-        const transporter = nodemailer.createTransport({
-          service: "gmail",
-          auth: {
-            user: "jsjprog4119@gmail.com",
-            pass: CONFIG.EMAIL_PASS,
-          },
-        });
-          ejs.renderFile('views/email.ejs', {tasks}, function (err, data) {
-            if (err) {
-              console.log(err)
+         transporter.sendMail(mailOptions, function (error, info) {
+           if (error) {
+             console.log(error);
             } else {
-            const mailOptions = {
-              from: "jsjprog4119@gmail.com",
-              to: user.username,
-              subject: `Task Reminder`,
-              html: data
-            };
-    
-            transporter.sendMail(mailOptions, function (error, info) {
-              if (error) {
-                console.log(error);
-              } else {
-                console.log("Email sent: " + info.response);
-              }
-            });
-          }})
-      } catch (err) {
-        console.error(err);
-      }}
+              console.log("Email sent: " + info.response);
+             }
+           });
+         }})
+     } catch (err) {
+       console.error(err);
+     }};

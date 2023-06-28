@@ -98,9 +98,14 @@ h1{
 }
 
 .checkbox {
-  font-size: large;
-  margin-top: 10px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-size: 25px;
+  color:rgb(34, 114, 145);
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.task-checkbox{
+  zoom: 1.7;
+  margin-left: 10px;
 }
 
 .button {

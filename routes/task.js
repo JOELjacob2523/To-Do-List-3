@@ -6,7 +6,7 @@ Router.get('/signup', async(req, res, next) => {
 });
 
 Router.get('/wrong-signup-msg', (req, res, next) => {
-  res.render('wrong-signup-msg', {wrongSignupMsg: 'Usermane already exists'})
+  res.render('wrong-signup-msg', {wrongSignupMsg: 'Username already exists'})
 });
 
 Router.post('/signup', async(req, res, next) => {
