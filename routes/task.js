@@ -61,7 +61,7 @@ Router.get('/incorrect-login', (req, res, next) => {
   });
 
   Router.get('/view', async (req, res, next) => {
-    try{
+    try{      
     let tasks = await Controller.getAll(req.session.userID);
     for (let task of tasks) {
       task.done = task.done ? true : false;
@@ -69,7 +69,7 @@ Router.get('/incorrect-login', (req, res, next) => {
     res.render('tasks-view', { tasks: tasks });
   }catch(err){
     console.error(err);
-    res.status(500).json({ error: 'Internal server error' });
+    res.redirect('/tasks/login');
   }});
 
   Router.post('/email/:taskId', async (req, res, next) => {

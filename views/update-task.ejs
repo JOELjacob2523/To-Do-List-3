@@ -12,15 +12,20 @@
         <% for(let task of tasks){ %>
                   <div class="form">
                       <form action="/tasks/update" method="POST">
+
                           <p>Edit Subjact</p>
                             <input type="text" name="Subject" value="<%= task.Subject %>" class="input">
+
                           <p>Edit Description</p>
                             <textarea name="Description" class="description"><%= task.Description %></textarea>
                               <input type="hidden" name="ListID" value="<%= task.ListID %>">
+
                           <p>Edit Date</p>
                             <input type="date" name="Date" value="<%= task.Date %>" id="Date" class="date">
+
                           <p>Edit Time</p>
                             <input type="time" name="Time" id="time" value="<%= task.Time %>" class="time">
+                            
                           <div class="button-container">
                             <button type="button" class="button" id="back-btn" 
                              onclick="window.history.go(-1)">Go Back</button>

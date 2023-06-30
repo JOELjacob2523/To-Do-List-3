@@ -7,13 +7,36 @@
     <link rel="icon" type="image/x-icon" href="/images/to-do-list.png">
     <title>Add Task</title>
     <link rel="stylesheet" href="/static/css/tasks.css">
+
+    <script>
+      async function submit() {
+        const form = document.querySelector('form')
+
+        const data = new FormData(form);
+
+        const datetime = new Date(`${data.get('date')}T${data.get('Time')}`);
+
+        const time = `${datetime.getUTCHours()}:${datetime.getUTCMinutes()}`
+
+        data.set('Date', datetime);
+        data.set('Time', time)
+
+        await fetch(form.action, {
+          method: form.method,
+          body: data,
+          credentials: 'include'
+        });
+
+        return false;
+      }
+    </script>
 </head>
 <body>
     <h1>To Do List</h1>
     <div class="form">
-    <form action="/tasks/create" method="post">
+    <form action="/tasks/create" method="POST" onsubmit="submit()">
             <div class="subject-div">
-                <input class="subject" type="text" name="Subject" placeholder="Enter Subjact">
+                <input class="subject" type="text" name="Subject" placeholder="Enter Subject">
             </div>
         <div>          
             <textarea class="description" type="textarea" rows="4" 
@@ -21,20 +44,14 @@
         </div>
         <div class="date">
             <p>Enter Date</p>
-            <input type="date" name="Date" id="Date" placeholder="mm/dd/yyyy">
+            <input type="date" name="Date" id="Date">
           </div>
           
           <div class="time">
             <p>Enter Time</p>
-            <input type="time" name="Time" id="time" placeholder="hh:mm">
+            <input type="time" name="Time" id="time">
           </div>
 
-          <div>
-            <% for (let i = 0; i < tasks.length; i++) { %>
-              <input type="hidden" name="userID" value="<%= tasks[i].userID %>">
-            <% } %>
-          </div>
-                    
         <div>
             <button class="submit" type="submit">Click To Add Task</button>
         </div>

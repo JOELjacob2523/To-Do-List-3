@@ -41,7 +41,7 @@ async function getAllFromUsers(Username, Password) {
 }
 
 async function createTask(Task) {
-  return knex("List").insert(Task).returning("*");
+  return knex("List").insert(Task);
 }
 
 async function deleteTask(id) {
