@@ -38,15 +38,23 @@ p{
    margin-left: 10px;
 }
 
+.update-btn:hover{
+    background-color: rgb(95, 188, 95);
+}
+
 .button{
    width: 150px;
    border-radius: 25px;
    height: 35px;
-   color: rgba(255, 255, 255, 0.733);
-   background-color: gray;
+   color:cornsilk;
+   background-color:rgb(181, 116, 242);
    cursor: pointer;
    font-size: large;
    margin-right: 10px;
+}
+
+.button:hover{
+    background-color: rgb(205, 173, 236);
 }
 
 .update-btn .button {

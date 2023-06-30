@@ -62,6 +62,10 @@ h1{
     margin-top: 50px;
 }
 
+.submit:hover{
+    background-color: rgb(188, 216, 238);
+}
+
 p{
     color: rgb(167, 226, 241);
     font-size: larger;

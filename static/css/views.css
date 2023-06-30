@@ -216,6 +216,11 @@ h1{
   height: 30px;
   font-size: large;
   margin-right: 15px;
+  cursor: pointer;
+}
+
+.confirm-delete-btn:hover{
+  background-color: rgb(242, 108, 108);
 }
 
 .cancel-delete-btn{
@@ -226,6 +231,11 @@ h1{
   height: 30px;
   font-size: large;
   margin-left: 15px;
+  cursor: pointer;
+}
+
+.cancel-delete-btn:hover{
+  background-color: rgba(185, 233, 212, 0.876);
 }
 
 .confirm-p{
