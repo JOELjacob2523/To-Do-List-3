@@ -45,16 +45,17 @@ Router.get('/incorrect-login', (req, res, next) => {
   });
 
   Router.post('/create', async (req, res, next) => {
-    const parsedUserID = req.session.userID;
+    /*const parsedUserID = req.session.userID;
     if (!parsedUserID) {
+      console.log(parsedUserID)
       return res.status(401).send('Unauthorized');
-    }
+    }*/
     const task = {
       Subject: req.body.Subject,
       Description: req.body.Description,
       Date: req.body.Date,
       Time: req.body.Time,
-      userID: parsedUserID,
+      userID: req.session.userID,
     };
     await Controller.createTask(task);
     res.redirect('/tasks/view');

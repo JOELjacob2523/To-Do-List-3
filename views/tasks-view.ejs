@@ -7,6 +7,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>My Tasks</title>
 	<link rel="stylesheet" href="/static/css/views.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
 	<h1>My To Do List</h1>
@@ -25,28 +28,33 @@
 			<div class="body">
 				<% for(let task of tasks){ %>
 					<div class="task-info">
+
 					<div class="task-desc">
 						<p class="th">Subject:</p>
                         <p class="input-desc"><%= task.Subject.charAt(0).toUpperCase() + task.Subject.slice(1) %></p>
 					</div>
+
 					<div class="task-desc">
 						<p class="th">Description:</p>
 						<p class="input-desc-text"><%= task.Description.charAt(0).toUpperCase() + task.Description.slice(1) %></p>
 					</div>
+
 					<div class="task-desc">
 						<p class="th">Date:</p>
-						<p class="input-desc"><%= task.Date.toLocaleDateString('en-US',{ timeZone: 'UTC' })%></p>
+						<p class="input-desc"><%= task.Date.toLocaleDateString('en-US')%></p>
 					</div>
-					
+
 					<div class="task-desc">
 						<p class="th">Time:</p>
-						<p class="input-desc"><%= task.Time.toLocaleString('en-US', { timeZone: 'UTC', hour: '2-digit', minute: '2-digit' })%></p>																												  
+						<p class="input-desc"><%= task.Time.toLocaleString('en-US', { hour: '2-digit', minute: '2-digit' })%></p>																												  
 					</div>
+
 					<div>												
 						<p class="complete" id="complete-<%= task.ListID %>">Complete</p>
 						<input type="checkbox" class="task-checkbox" id="checkbox-<%= task.ListID %>">
 						<label for="checkbox-<%= task.ListID %>" class="checkbox">Mark As Complete</label>
 					</div>
+
 				</div>
 						<div class="dlt-edit">
 							<form action="/tasks/edit/<%= task.ListID %>" method="GET">
