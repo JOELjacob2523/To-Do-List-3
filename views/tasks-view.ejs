@@ -40,13 +40,8 @@
 					</div>
 
 					<div class="task-desc">
-						<p class="th">Date:</p>
-						<p class="input-desc"><%= task.Date.toLocaleDateString('en-US')%></p>
-					</div>
-
-					<div class="task-desc">
-						<p class="th">Time:</p>
-						<p class="input-desc"><%= task.Time.toLocaleString('en-US', { hour: '2-digit', minute: '2-digit' })%></p>																												  
+						<p class="th">Date / Time:</p>
+						<p class="input-desc"><%= task.Date.toLocaleDateString('en-US', { hour: '2-digit', minute: '2-digit' }) %></p>
 					</div>
 
 					<div>												

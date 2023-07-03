@@ -10,8 +10,8 @@ body{
     display: block;
     margin: auto;
     border-radius: 15px;
-    height: 550px;
-    padding-top: 20px;
+    height: 490px;
+    padding-top: 50px;
     padding-bottom: 15px;
 }
 
@@ -68,13 +68,13 @@ h1{
 
 p{
     color: rgb(167, 226, 241);
-    font-size: larger;
+    font-size: 25px;
     margin: auto;
     display: block;
     width: 500px;
     height: 25px;
     text-align: center;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 #Date{
@@ -86,6 +86,7 @@ p{
     border-radius: 10px;
     padding: 10px;
     font-family: Arial, Helvetica, sans-serif;
+    margin-top: 10px;
 }
 
 #time{

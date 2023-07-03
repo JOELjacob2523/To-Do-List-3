@@ -43,9 +43,9 @@ h1{
   margin-left: 170px;
   color: rgb(16, 207, 16);
   top: 0;
-  margin-top: 150px;
+  margin-top: 120px;
   font-family: 'Dancing Script', cursive;
-  font-weight: bold;
+  font-weight: bolder ;
   text-shadow: 2px 2px green;
 }
 

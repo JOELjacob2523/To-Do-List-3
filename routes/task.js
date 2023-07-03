@@ -57,7 +57,19 @@ Router.get('/incorrect-login', (req, res, next) => {
       Time: req.body.Time,
       userID: req.session.userID,
     };
+    if (task){
     await Controller.createTask(task);
+    } else {
+      
+      const defaultTask = {
+        Subject: req.body.Subject,
+        Description: req.body.Description,
+        Date: new Date("yyyy-mm-dd hh:mm"),
+        Time: new Date().getTime(),
+        userID: req.session.userID,
+      };
+      await Controller.createTask(defaultTask);
+    }
     res.redirect('/tasks/view');
   });
 

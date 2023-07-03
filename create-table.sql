@@ -28,8 +28,8 @@ CREATE TABLE List (
   ListID BIGINT NOT NULL AUTO_INCREMENT,
   Subject VARCHAR(255),
   Description VARCHAR(255),
-  Date DATE,
-  Time TIME,
+  Date DATE NULL,
+  Time TIME NULL,
   userID BIGINT,
   FOREIGN KEY(userID) REFERENCES users(userID),
   PRIMARY KEY (ListID)

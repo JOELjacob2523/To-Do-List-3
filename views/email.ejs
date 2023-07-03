@@ -6,10 +6,10 @@
     <title>Email</title>
     <style>
     h1 {
-    color: cornflowerblue;
-    font-size: 40px;
-    text-align: center;
-    font-family: 'Andalus';
+        color: cornflowerblue;
+        font-size: 40px;
+        text-align: center;
+        font-family: 'Andalus';
     }
     .task-info{
         background-color: bisque;
@@ -38,8 +38,7 @@
             <div class="task-info">
                 <p class="th">Subject: <span class="input-desc"><%= task.Subject.charAt(0).toUpperCase() + task.Subject.slice(1) %></span></p>                
                 <p class="th">Description: <span class="input-desc"><%= task.Description.charAt(0).toUpperCase() + task.Description.slice(1) %></span></p>                
-                <p class="th">Date: <span class="input-desc"><%= task.Date.toLocaleDateString('en-US',{ timeZone: 'UTC' })%></span></p>
-                <p class="th">Time: <span class="input-desc"><%= task.Time.toLocaleString('en-US', { timeZone : 'UTC', hour: '2-digit', minute: '2-digit' })%></span></p>               
+                <p class="th">Date / Time: <span class="input-desc"><%= task.Date.toLocaleDateString('en-US', { hour: '2-digit', minute: '2-digit' })%></span></p>              
             </div>
     <% } %>
 </body>
