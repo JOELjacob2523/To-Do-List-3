@@ -14,10 +14,10 @@
                       <form action="/tasks/update" method="POST">
 
                           <p>Edit Subjact</p>
-                            <input type="text" name="Subject" value="<%= task.Subject %>" class="input">
+                            <input type="text" name="Subject" value="<%= task.Subject %>" class="input" required>
 
                           <p>Edit Description</p>
-                            <textarea name="Description" class="description"><%= task.Description %></textarea>
+                            <textarea name="Description" class="description" required><%= task.Description %></textarea>
                               <input type="hidden" name="ListID" value="<%= task.ListID %>">
 
                           <p>Edit Date / Time</p>
