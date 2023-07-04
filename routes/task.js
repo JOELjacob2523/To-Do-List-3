@@ -6,7 +6,7 @@ Router.get('/signup', async(req, res, next) => {
 });
 
 Router.get('/wrong-signup-msg', (req, res, next) => {
-  res.render('wrong-signup-msg', {wrongSignupMsg: 'Username already exists'})
+  res.render('wrong-signup-msg', {wrongSignupMsg: 'Username Already Exists'})
 });
 
 Router.post('/signup', async(req, res, next) => {
@@ -36,7 +36,7 @@ Router.post('/login', async (req, res, next) => {
 });
 
 Router.get('/incorrect-login', (req, res, next) => {
-  res.render('incorrect-login', {loginMsg: 'Invalid username or password'})
+  res.render('incorrect-login', {loginMsg: 'Invalid Username Or Password'})
 });
 
   Router.get('/create', async (req, res, next) => {  
@@ -124,7 +124,7 @@ Router.get('/incorrect-login', (req, res, next) => {
   });
 
   Router.get('/update-msg', async (req, res, next) => {
-    res.render('update-msg', {updateMsg: 'Task successfully Updated'})
+    res.render('update-msg', {updateMsg: 'Task Successfully Updated'})
   })
   
   Router.post('/update', async(req, res, next) => {
