@@ -47,6 +47,7 @@ h1{
   font-family: 'Dancing Script', cursive;
   font-weight: bolder ;
   text-shadow: 2px 2px green;
+  transform: rotate(-35deg);
 }
 
 .task-desc {

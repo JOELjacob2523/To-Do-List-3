@@ -36,7 +36,7 @@ Router.post('/login', async (req, res, next) => {
 });
 
 Router.get('/incorrect-login', (req, res, next) => {
-  res.render('incorrect-login', {loginMsg: 'Invalid Username Or Password'})
+  res.render('incorrect-login', {loginMsg: 'Invalid Username or Password'})
 });
 
   Router.get('/create', async (req, res, next) => {  
