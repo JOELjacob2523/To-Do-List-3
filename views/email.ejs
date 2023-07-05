@@ -5,11 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email</title>
     <style>
+    .body{
+        border: gray 1px solid;
+        border-radius: 5px;
+        width: 750px;
+        height: 400px;
+        margin: auto;
+        display: block;
+        padding-top: 20px;
+        background-color: rgb(205, 234, 244);
+    }
     h1 {
         color: cornflowerblue;
         font-size: 40px;
         text-align: center;
         font-family: 'Andalus';
+        padding-bottom: 20px;
     }
     .task-info{
         background-color: bisque;
@@ -19,6 +30,7 @@
         display: block;
         padding-left: 10px;
         padding-right: 10px;
+        border: rgb(141, 208, 230) 1px solid;
     }
     .th{
         color: blue;
@@ -33,6 +45,7 @@
     </style>
 </head>
 <body>
+    <div class="body">
     <h1>This Is a Friendly Reminder of Your Task</h1>
         <% for(let task of tasks){ %>
             <div class="task-info">
@@ -41,5 +54,6 @@
                 <p class="th">Date / Time: <span class="input-desc"><%= task.Date.toLocaleDateString('en-US', { hour: '2-digit', minute: '2-digit' })%></span></p>              
             </div>
     <% } %>
+</div>
 </body>
 </html>
