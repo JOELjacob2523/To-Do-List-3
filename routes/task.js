@@ -96,7 +96,7 @@ Router.get('/incorrect-login', (req, res, next) => {
   });  
 
   Router.get('/email/email-send', (req, res, next) => {
-    res.render('email-send', {emailSend: 'Email Send Successfully'});
+    res.render('email-send', {emailSend: 'Email Sent Successfully'});
   });
   
   Router.post('/delete/:taskId', async (req, res, next) => {
