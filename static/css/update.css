@@ -109,4 +109,10 @@ p{
 
 .clock{
     color:rgb(2, 57, 94);
+    margin: auto;
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    margin-top: 15px;
+    margin-bottom: 10px;
   }
