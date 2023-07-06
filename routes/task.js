@@ -45,31 +45,14 @@ Router.get('/incorrect-login', (req, res, next) => {
   });
 
   Router.post('/create', async (req, res, next) => {
-    /*const parsedUserID = req.session.userID;
-    if (!parsedUserID) {
-      console.log(parsedUserID)
-      return res.status(401).send('Unauthorized');
-    }*/
     const task = {
       Subject: req.body.Subject,
       Description: req.body.Description,
-      Date: req.body.Date,
+      Date: req.body.Date || new Date().toISOString().split('T')[0],
       Time: req.body.Time,
       userID: req.session.userID,
     };
-    if (task){
     await Controller.createTask(task);
-    } else {
-      
-      const defaultTask = {
-        Subject: req.body.Subject,
-        Description: req.body.Description,
-        Date: new Date("yyyy-mm-dd hh:mm"),
-        Time: new Date().getTime(),
-        userID: req.session.userID,
-      };
-      await Controller.createTask(defaultTask);
-    }
     res.redirect('/tasks/view');
   });
 
