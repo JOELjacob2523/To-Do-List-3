@@ -22,6 +22,8 @@
 
                           <p>Edit Date / Time</p>
                             <input type="datetime-local" name="Date" value="<%= task.Date %>" id="Date" class="date" required>
+
+                          <p class="clock">Time is now: <span id="clock" class="clock"></span></p>
                             
                           <div class="button-container">
                             <button type="button" class="button" id="back-btn" 
@@ -30,5 +32,12 @@
                     </form>          
                   </div>
             <% } %>
+
+    <script>
+       setInterval(() => {
+	     	let now = new Date().toLocaleString();
+		    document.getElementById('clock').innerHTML = now;
+	     }, 1000)
+    </script>
 </body>
 </html>

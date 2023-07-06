@@ -18,7 +18,7 @@
 
         const time = `${datetime.getUTCHours()}:${datetime.getUTCMinutes()}`
 
-        data.set('Date', datetime);
+        data.set('Date', datetime || new Date());
         data.set('Time', time)
 
         await fetch(form.action, {
@@ -45,14 +45,24 @@
 
         <div class="date">
             <p>Enter Date / Time</p>
-            <input type="datetime-local" name="Date" id="Date" required>
+            <input type="datetime-local" name="Date" id="Date">
         </div>
 
+        <div>            
+	        <p class="clock">Time is now: <span id="clock" class="clock"></span></p>
+        </div>
         <div>
             <button class="submit" type="submit">Click To Add Task</button>
         </div>
 
     </form>
 </div>
+
+<script>
+    setInterval(() => {
+		let now = new Date().toLocaleString();
+		document.getElementById('clock').innerHTML = now;
+	 }, 1000)
+</script>
 </body>
 </html>

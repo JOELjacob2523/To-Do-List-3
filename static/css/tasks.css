@@ -10,7 +10,7 @@ body{
     display: block;
     margin: auto;
     border-radius: 15px;
-    height: 490px;
+    height: 520px;
     padding-top: 50px;
     padding-bottom: 15px;
 }
@@ -59,7 +59,7 @@ h1{
     cursor: pointer;
     border-radius: 25px;
     width: 400px;
-    margin-top: 50px;
+    margin-top: 40px;
 }
 
 .submit:hover{
@@ -99,3 +99,7 @@ p{
     padding: 10px;
     font-family: Arial, Helvetica, sans-serif;
 }
+
+.clock{
+    color:rgb(188, 224, 248);
+  }
