@@ -22,9 +22,9 @@
 
                           <p>Edit Date / Time</p>
                             <input type="datetime-local" name="Date" value="<%= task.Date %>" id="Date" class="date" required>
-
-                          <p class="clock">Current Date & Time: <span id="clock"></span></p>
-                            
+                        <div class="clock-div">
+                          <p class="clock-desc">Current Date & Time: <span id="clock"></span></p>
+                        </div>
                           <div class="button-container">
                             <button type="button" class="button" id="back-btn" 
                              onclick="window.history.go(-1)">Go Back</button>
