@@ -103,7 +103,6 @@ h1{
 #clock{
     color:rgb(188, 224, 248);
     margin: auto;
-    text-align: center;
     font-size: 18px;
     margin-top: 15px;
     font-family: Arial, Helvetica, sans-serif;
@@ -113,7 +112,6 @@ h1{
   .clock-desc{
     color:rgb(188, 224, 248);
     margin: auto;
-    text-align: center;
     font-size: 18px;
     margin-top: 15px;
     font-family: Arial, Helvetica, sans-serif;
