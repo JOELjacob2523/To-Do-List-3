@@ -107,7 +107,7 @@ p{
     margin-bottom: 30px;
 }
 
-#clock{
+.clock{
     color:rgb(2, 57, 94);
     margin: auto;
     text-align: center;
@@ -130,4 +130,6 @@ p{
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    margin-top: 10px;
+    margin-bottom: 15px;
   }
