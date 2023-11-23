@@ -101,9 +101,9 @@
        		confirmDeleteButtons[i].addEventListener("click", (event) => {
          	event.preventDefault();
        		const taskId = confirmDeleteButtons[i].getAttribute('data-task-id'); // Get the task ID from a custom data attribute
-            const confirmationModal = document.getElementById('confirmation-modal-' + taskId);
-            confirmationModal.style.display = 'none';
-            document.getElementById('delete-form-' + taskId).submit();
+                const confirmationModal = document.getElementById('confirmation-modal-' + taskId);
+                confirmationModal.style.display = 'none';
+                document.getElementById('delete-form-' + taskId).submit();
         });
       }
 
