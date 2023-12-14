@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const nodemailer = require("nodemailer");
 const CONFIG = require('../config.json');
 const ejs = require ('ejs');
+const schedule = require('node-schedule');
 
 module.exports = {
   createTask,
@@ -106,6 +107,7 @@ async function confirmUser(username, password) {
 
 async function taskReminder(userId, taskId) {
    try {
+    let time = await knex.select("Time").from("List");
      let user = await knex.select("username").from("users").where({ userID: userId }).first();
      let tasks = await knex.select().from("List").where({ userID: userId, ListID: taskId });
      const transporter = nodemailer.createTransport({
@@ -125,7 +127,8 @@ async function taskReminder(userId, taskId) {
             subject: `Task Reminder`,
             html: data
           };
-    
+          
+          const job = schedule.scheduleJob(time, () => {
          transporter.sendMail(mailOptions, function (error, info) {
            if (error) {
              console.log(error);
@@ -133,6 +136,7 @@ async function taskReminder(userId, taskId) {
               console.log("Email sent: " + info.response);
              }
            });
+          })
          }})
      } catch (err) {
        console.error(err);
