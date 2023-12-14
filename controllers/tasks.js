@@ -127,8 +127,7 @@ async function taskReminder(userId, taskId) {
             subject: `Task Reminder`,
             html: data
           };
-          
-          const job = schedule.scheduleJob(time, () => {
+
          transporter.sendMail(mailOptions, function (error, info) {
            if (error) {
              console.log(error);
@@ -136,7 +135,6 @@ async function taskReminder(userId, taskId) {
               console.log("Email sent: " + info.response);
              }
            });
-          })
          }})
      } catch (err) {
        console.error(err);
