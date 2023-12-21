@@ -106,36 +106,56 @@ async function confirmUser(username, password) {
 }
 
 async function taskReminder(userId, taskId) {
-   try {
-    let time = await knex.select("Time").from("List");
-     let user = await knex.select("username").from("users").where({ userID: userId }).first();
-     let tasks = await knex.select().from("List").where({ userID: userId, ListID: taskId });
-     const transporter = nodemailer.createTransport({
-       service: "gmail",
-       auth: {
-         user: "jsjprog4119@gmail.com",
-         pass: CONFIG.EMAIL_PASS,
-         },
-     });
-        ejs.renderFile('views/email.ejs', {tasks}, function (err, data) {
-          if (err) {
-            console.log(err)
-          } else {
-          const mailOptions = {
-            from: "jsjprog4119@gmail.com",
-            to: user.username,
-            subject: `Task Reminder`,
-            html: data
-          };
+  try {
+    let user = await knex.select("username").from("users").where({ userID: userId }).first();
+    let tasks = await knex.select().from("List").where({ userID: userId, ListID: taskId });
 
-         transporter.sendMail(mailOptions, function (error, info) {
-           if (error) {
-             console.log(error);
+    let taskTime = tasks[0].Date;
+    let currentTime = new Date();
+    let reminderTime = new Date(taskTime);
+    let timeDifference = reminderTime.getTime() - currentTime.getTime();
+
+    if (timeDifference > 0) {
+      console.log(`Task reminder scheduled in ${timeDifference} milliseconds`);
+
+      schedule.scheduleJob(reminderTime, async function() {
+        try {
+          ejs.renderFile('views/email.ejs', { tasks }, function(err, data) {
+            if (err) {
+              console.log(err);
             } else {
-              console.log("Email sent: " + info.response);
-             }
-           });
-         }})
-     } catch (err) {
-       console.error(err);
-     }};
+              const transporter = nodemailer.createTransport({
+                service: "gmail",
+                auth: {
+                  user: "jsjprog4119@gmail.com",
+                  pass: CONFIG.EMAIL_PASS,
+                },
+              });
+
+              const mailOptions = {
+                from: "jsjprog4119@gmail.com",
+                to: user.username,
+                subject: `Task Reminder`,
+                html: data,
+              };
+
+              transporter.sendMail(mailOptions, function(error, info) {
+                if (error) {
+                  console.error("Error sending email:", error);
+                } else {
+                  console.log("Email sent for task reminder!");
+                }
+              });
+            }
+          });
+        } catch (error) {
+          console.error("Error sending email:", error);
+        }
+      });
+    } else {
+      console.log("Task time has already passed.");
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
