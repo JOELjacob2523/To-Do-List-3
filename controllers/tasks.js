@@ -3,9 +3,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const nodemailer = require("nodemailer");
-const CONFIG = require('../config.json');
-const ejs = require ('ejs');
-const schedule = require('node-schedule');
+const CONFIG = require("../config.json");
+const ejs = require("ejs");
+const schedule = require("node-schedule");
 
 module.exports = {
   createTask,
@@ -18,7 +18,7 @@ module.exports = {
   getUserPass,
   getIDFromList,
   getAllFromUsers,
-  taskReminder
+  taskReminder,
 };
 
 async function getIDFromList() {
@@ -69,7 +69,7 @@ async function createUser(username, password) {
   if (user) {
     throw new Error("Username already exists");
   }
-  
+
   const hashedPassword = await bcrypt.hash(password, 8);
 
   const payload = {
@@ -98,63 +98,106 @@ async function confirmUser(username, password) {
   };
   const token = jwt.sign(payload, process.env.TOKEN_KEY);
   await knex("users").where("userID", id).update({ token });
-  
+
   const decodedToken = jwt.verify(token, process.env.TOKEN_KEY);
   const userId = decodedToken.userID;
-  
+
   return { user, userId };
 }
 
+// async function taskReminder(userId, taskId) {
+//   try {
+//     let user = await knex.select("username").from("users").where({ userID: userId }).first();
+//     let tasks = await knex.select().from("List").where({ userID: userId, ListID: taskId });
+
+//     let taskTime = tasks[0].Date;
+//     let currentTime = new Date();
+//     let reminderTime = new Date(taskTime);
+//     let timeDifference = reminderTime.getTime() - currentTime.getTime();
+
+//     if (timeDifference > 0) {
+//       console.log(`Task reminder scheduled in ${timeDifference} milliseconds`);
+
+//       schedule.scheduleJob(reminderTime, async function() {
+//         try {
+//           ejs.renderFile('views/email.ejs', { tasks }, function(err, data) {
+//             if (err) {
+//               console.log(err);
+//             } else {
+//               const transporter = nodemailer.createTransport({
+//                 service: "gmail",
+//                 auth: {
+//                   user: "jsjprog4119@gmail.com",
+//                   pass: CONFIG.EMAIL_PASS,
+//                 },
+//               });
+
+//               const mailOptions = {
+//                 from: "jsjprog4119@gmail.com",
+//                 to: user.username,
+//                 subject: `Task Reminder`,
+//                 html: data,
+//               };
+
+//               transporter.sendMail(mailOptions, function(error, info) {
+//                 if (error) {
+//                   console.error("Error sending email:", error);
+//                 } else {
+//                   console.log("Email sent for task reminder!");
+//                 }
+//               });
+//             }
+//           });
+//         } catch (error) {
+//           console.error("Error sending email:", error);
+//         }
+//       });
+//     } else {
+//       console.log("Task time has already passed.");
+//     }
+//   } catch (err) {
+//     console.error(err);
+//   }
+// }
+
 async function taskReminder(userId, taskId) {
   try {
-    let user = await knex.select("username").from("users").where({ userID: userId }).first();
-    let tasks = await knex.select().from("List").where({ userID: userId, ListID: taskId });
+    let user = await knex
+      .select("username")
+      .from("users")
+      .where({ userID: userId })
+      .first();
+    let tasks = await knex
+      .select()
+      .from("List")
+      .where({ userID: userId, ListID: taskId });
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "jsjprog4119@gmail.com",
+        pass: CONFIG.EMAIL_PASS,
+      },
+    });
+    ejs.renderFile("views/email.ejs", { tasks }, function (err, data) {
+      if (err) {
+        console.log(err);
+      } else {
+        const mailOptions = {
+          from: "jsjprog4119@gmail.com",
+          to: user.username,
+          subject: `Task Reminder`,
+          html: data,
+        };
 
-    let taskTime = tasks[0].Date;
-    let currentTime = new Date();
-    let reminderTime = new Date(taskTime);
-    let timeDifference = reminderTime.getTime() - currentTime.getTime();
-
-    if (timeDifference > 0) {
-      console.log(`Task reminder scheduled in ${timeDifference} milliseconds`);
-
-      schedule.scheduleJob(reminderTime, async function() {
-        try {
-          ejs.renderFile('views/email.ejs', { tasks }, function(err, data) {
-            if (err) {
-              console.log(err);
-            } else {
-              const transporter = nodemailer.createTransport({
-                service: "gmail",
-                auth: {
-                  user: "jsjprog4119@gmail.com",
-                  pass: CONFIG.EMAIL_PASS,
-                },
-              });
-
-              const mailOptions = {
-                from: "jsjprog4119@gmail.com",
-                to: user.username,
-                subject: `Task Reminder`,
-                html: data,
-              };
-
-              transporter.sendMail(mailOptions, function(error, info) {
-                if (error) {
-                  console.error("Error sending email:", error);
-                } else {
-                  console.log("Email sent for task reminder!");
-                }
-              });
-            }
-          });
-        } catch (error) {
-          console.error("Error sending email:", error);
-        }
-      });
-    } else {
-      console.log("Task time has already passed.");
-    }
+        transporter.sendMail(mailOptions, function (error, info) {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log("Email sent: " + info.response);
+          }
+        });
+      }
+    });
   } catch (err) {
     console.error(err);
   }
